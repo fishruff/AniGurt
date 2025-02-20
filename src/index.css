@@ -1,0 +1,13 @@
+@import "tailwindcss";
+:root{
+    background: #171717;
+}
+.b-link{
+    display: inline-block;
+    font-style: italic;
+    color: #56a6f7; 
+    transition: transform 0.3s ease;
+}
+.b-link:hover{
+    transform: scale(1.05);
+}

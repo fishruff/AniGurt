@@ -1,0 +1,29 @@
+import { ApolloProvider } from "@apollo/client";
+import Header from "../components/Header";
+import TopAnimes from "../components/TopAnimes";
+import { client } from "../components/apolloClient";
+import { Routes, Route } from "react-router-dom";
+import AnimePage from "../components/AnimePage";
+import SearchAnime from "../components/SearchAnime";
+import Home from "../components/Home";
+import MangaPage from "../components/Manga";
+
+function MainLayouts() {
+    return ( 
+        <div>
+            <Header/>
+            
+            <ApolloProvider client={client}>
+            <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/animes" element={<TopAnimes/>}/>
+            <Route path="/anime/:id" element={<AnimePage/>}/>
+            <Route path="/search" element={<SearchAnime/>}/>
+            <Route path="/mangas" element={<MangaPage/>}/>
+            </Routes>
+            </ApolloProvider>
+        </div>
+     );
+}
+
+export default MainLayouts;
