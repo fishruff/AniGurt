@@ -103,6 +103,8 @@ function Home() {
 
         <AnimeList animeList={ex_season.data?.animes || []} loading={ex_season.loading} />
 
+
+
       </div>
     </div>
   );
