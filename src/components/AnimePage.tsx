@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_ANIME_BY_ID } from "./apolloClient";
 import Spiner from "./Spiner";
+import Player from "./Player";
+
 
 interface Anime {
   id: number;
@@ -19,7 +21,7 @@ interface Anime {
   genres: { id: number; name: string; russian: string; kind: string }[];
 }
 
-const AnimePage = () => {
+const AnimePage= () => {
   const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useQuery(GET_ANIME_BY_ID, {
     variables: { id },
@@ -31,6 +33,8 @@ const AnimePage = () => {
 
   const anime: Anime = data.animes[0];
   const newDesc = anime.descriptionHtml || "Описания пока нет :(";
+  
+  const urlPlayer = '//kodik.cc/find-player?shikimoriID='+anime.id+'&types=anime,anime-serial&episode=1';
 
   return (
     <div className="p-10 text-[#f4f4f4]">
@@ -60,6 +64,9 @@ const AnimePage = () => {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="">
+        <Player urlPlayer={urlPlayer}/>
       </div>
     </div>
   );
