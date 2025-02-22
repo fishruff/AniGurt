@@ -27,6 +27,156 @@ export const GET_TOP_ANIME = gql`
   }
 `;
 
+export const GET_MANGA_BY_ID = gql`
+query GetMangaById($id: String!){
+    mangas(ids: $id) {
+    id
+    malId
+    name
+    russian
+    licenseNameRu
+    english
+    japanese
+    synonyms
+    kind
+    score
+    status
+    volumes
+    chapters
+    airedOn { year month day date }
+    releasedOn { year month day date }
+    url
+
+    poster { id originalUrl mainUrl }
+
+    licensors
+    createdAt,
+    updatedAt,
+    isCensored
+
+    genres { id name russian kind }
+    publishers { id name }
+
+    externalLinks {
+      id
+      kind
+      url
+      createdAt
+      updatedAt
+    }
+
+    personRoles {
+      id
+      rolesRu
+      rolesEn
+      person { id name poster { id } }
+    }
+    characterRoles {
+      id
+      rolesRu
+      rolesEn
+      character { id name poster { id } }
+    }
+
+    related {
+      id
+      anime {
+        id
+        name
+      }
+      manga {
+        id
+        name
+      }
+      relationKind
+      relationText
+    }
+
+    scoresStats { score count }
+    statusesStats { status count }
+
+    description
+    descriptionHtml
+    descriptionSource
+  }
+ }
+`;
+
+ export const GET_TOP_MANGA = gql`
+  query {
+  mangas(limit: 50) {
+    id
+    malId
+    name
+    russian
+    licenseNameRu
+    english
+    japanese
+    synonyms
+    kind
+    score
+    status
+    volumes
+    chapters
+    airedOn { year month day date }
+    releasedOn { year month day date }
+    url
+
+    poster { id originalUrl mainUrl }
+
+    licensors
+    createdAt,
+    updatedAt,
+    isCensored
+
+    genres { id name russian kind }
+    publishers { id name }
+
+    externalLinks {
+      id
+      kind
+      url
+      createdAt
+      updatedAt
+    }
+
+    personRoles {
+      id
+      rolesRu
+      rolesEn
+      person { id name poster { id } }
+    }
+    characterRoles {
+      id
+      rolesRu
+      rolesEn
+      character { id name poster { id } }
+    }
+
+    related {
+      id
+      anime {
+        id
+        name
+      }
+      manga {
+        id
+        name
+      }
+      relationKind
+      relationText
+    }
+
+    scoresStats { score count }
+    statusesStats { status count }
+
+    description
+    descriptionHtml
+    descriptionSource
+  }
+  }
+ `
+
 export const GET_ANIME_SEARCH = gql`
  query SearchAnime($query: String!){
     animes(search: $query, limit: 50) { 

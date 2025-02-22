@@ -6,7 +6,8 @@ import { Routes, Route } from "react-router-dom";
 import AnimePage from "../components/AnimePage";
 import SearchAnime from "../components/SearchAnime";
 import Home from "../components/Home";
-import MangaPage from "../components/Manga";
+import MangaPage from "../components/MangaPage";
+import Manga from "../components/Manga";
 
 function MainLayouts() {
     return ( 
@@ -19,7 +20,8 @@ function MainLayouts() {
             <Route path="/animes" element={<TopAnimes/>}/>
             <Route path="/anime/:id" element={<AnimePage/>}/>
             <Route path="/search" element={<SearchAnime/>}/>
-            <Route path="/mangas" element={<MangaPage/>}/>
+            <Route path="/mangas" element={<Manga/>}/>
+            <Route path="/manga/:id" element={<MangaPage/>}/>
             </Routes>
             </ApolloProvider>
         </div>
