@@ -13,12 +13,15 @@ interface Anime {
   russian: string;
   image: { original: string };
   score: string;
+  rating: string;
+  kind: string;
   url: string;
   poster: { originalUrl: string };
   status: string;
   episodes: number;
   airedOn?: { year: number };
   genres: { id: number; name: string; russian: string; kind: string }[];
+  screenshots: {id: number; originalUrl:string}[];
 }
 
 const AnimePage= () => {
@@ -33,26 +36,43 @@ const AnimePage= () => {
 
   const anime: Anime = data.animes[0];
   const newDesc = anime.descriptionHtml || "Описания пока нет :(";
-  
   const urlPlayer = '//kodik.cc/find-player?shikimoriID='+anime.id+'&types=anime,anime-serial&episode=1';
 
+  console.log(data);
+  
+
   return (
-    <div className="p-10 text-[#f4f4f4]">
-      <div className="flex gap-20">
-        <img src={anime.poster.originalUrl} alt={anime.name} className="w-64 h-128 rounded-lg" />
+    <div className="p-10 text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
+
+        <div className="absolute  inset-0 w-full h-[50%] bg-cover bg-center blur-xl"  style={{ backgroundImage: `url(${anime.poster.originalUrl})` }}></div>
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+
+      <div className="flex flex-col relative w-4/5 justify-between mx-auto gap-20 z-10">
+        <div className="flex flex-row">
+        <img src={anime.poster.originalUrl} alt={anime.name} className=" w-90 h-120 rounded-lg" />
         <div className="p-10 pt-0">
-          <p className="text-2xl font-bold">
-            {anime.russian} / {anime.name}{" "}
-            <a className="text-[#56a6f7] text-xs" href={anime.url} target="_blank" rel="noopener noreferrer">
-              shikimori
-            </a>
-          </p>
-          <p dangerouslySetInnerHTML={{ __html: newDesc }} className="mt-2"></p>
-          <div className="flex justify-between">
-            <p className="mt-2 bg-blue-900 p-5 rounded-2xl">Оценка: {anime.score}</p>
-            <p className="mt-2 bg-fuchsia-900 p-5 rounded-2xl">Эпизодов: {anime.episodes}</p>
-            <p className="mt-2 bg-green-900 p-5 rounded-2xl">Статус: {anime.status}</p>
+        <div className="max-w-[70%]">
+          <p className="text-2xl text-white font-bold">{anime.russian}</p>
+          <p className="text-amber-50"> {anime.name}   <a className="text-[#56a6f7] text-xs" href={anime.url} target="_blank" rel="noopener noreferrer">shikimori</a></p>
+           
+            <div className="flex gap-10">
+                <p className="text-[#7e8597]">{anime.rating}</p>
+                <p className="text-[#7e8597]">{anime.airedOn?.year}</p>
+                <p className="text-[#7e8597]">{anime.kind}</p>
+                
+            </div>
+
+            <p className=" text-2xl">Информация</p>
+          <div className="grid grid-cols-2 gap-2">
+            <p className="mt-2">Оценка: </p>
+            <p>{anime.score}</p>
+            <p className="mt-2">Эпизодов: </p>
+            <p>{anime.episodes}</p>
+            <p className="mt-2">Статус: </p>
+            <p>{anime.status}</p>
           </div>
+          <p className=" text-2xl">Описание</p>
+          <p dangerouslySetInnerHTML={{ __html: newDesc }} className="mt-2"></p>
           <div className="mt-4">
             <h3 className="text-xl">Жанры:</h3>
             <ul className="flex gap-5">
@@ -63,13 +83,16 @@ const AnimePage= () => {
               ))}
             </ul>
           </div>
+          </div>
+          </div>
         </div>
-      </div>
       <div className="">
         <Player urlPlayer={urlPlayer}/>
+      </div>
       </div>
     </div>
   );
 };
+
 
 export default AnimePage;

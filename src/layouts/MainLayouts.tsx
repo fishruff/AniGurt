@@ -8,6 +8,7 @@ import SearchAnime from "../components/SearchAnime";
 import Home from "../components/Home";
 import MangaPage from "../components/MangaPage";
 import Manga from "../components/Manga";
+import { Analytics } from "@vercel/analytics/react"
 
 function MainLayouts() {
     return ( 
@@ -24,6 +25,7 @@ function MainLayouts() {
             <Route path="/manga/:id" element={<MangaPage/>}/>
             </Routes>
             </ApolloProvider>
+            <Analytics/>
         </div>
      );
 }
