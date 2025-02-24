@@ -26,20 +26,23 @@ interface Manga {
 
 function MangaPage() {
   const { id } = useParams();
-  
-  const { loading, error, data } = useQuery<{ mangas: Manga[] }>(GET_MANGA_BY_ID, {
+
+  const { loading, error, data } = useQuery<{ mangas: Manga[] }>(
+    GET_MANGA_BY_ID,
+    {
       variables: { id },
-    });
-    
-    if (loading) return <Spiner />;
-    if (error) return <p>Ошибка: {error.message}</p>;
-    
-    if (!data || !data.mangas || data.mangas.length === 0) {
-        return <p>Данные не найдены.</p>;
     }
-    
-    const manga = data.mangas[0];
-   
+  );
+
+  if (loading) return <Spiner />;
+  if (error) return <p>Ошибка: {error.message}</p>;
+
+  if (!data || !data.mangas || data.mangas.length === 0) {
+    return <p>Данные не найдены.</p>;
+  }
+
+  const manga = data.mangas[0];
+
   const newDesc = manga.descriptionHtml || "Описания пока нет :(";
 
   return (

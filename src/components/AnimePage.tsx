@@ -56,9 +56,9 @@ const AnimePage= () => {
           <p className="text-amber-50"> {anime.name}   <a className="text-[#56a6f7] text-xs" href={anime.url} target="_blank" rel="noopener noreferrer">shikimori</a></p>
            
             <div className="flex gap-10">
-                <p className="text-[#7e8597]">{anime.rating}</p>
-                <p className="text-[#7e8597]">{anime.airedOn?.year}</p>
-                <p className="text-[#7e8597]">{anime.kind}</p>
+                <p className="text-[#7e8597] p-1.5 border-1 border-amber-[#7e8597] rounded-2xl">{anime.rating}</p>
+                <p className="text-[#7e8597] p-1.5 border-1 border-amber-[#7e8597] rounded-2xl">{anime.airedOn?.year}</p>
+                <p className="text-[#7e8597] p-1.5 border-1 border-amber-[#7e8597] rounded-2xl">{anime.kind}</p>
                 
             </div>
 

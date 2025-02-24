@@ -17,6 +17,10 @@ export const GET_TOP_ANIME = gql`
       episodesAired
       url
       kind
+      screenshots{
+      id 
+      originalUrl
+      }
       airedOn{
         year
       }
