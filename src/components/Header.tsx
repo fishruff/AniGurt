@@ -18,7 +18,9 @@ function Header() {
         <Link to={`/search`}>
           <p>Поиск</p>
         </Link>
+        <Link to={`/me`}>
         <p>me</p>
+        </Link>
       </div>
     </div>
   );
