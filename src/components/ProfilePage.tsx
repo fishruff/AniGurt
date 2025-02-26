@@ -1,29 +1,28 @@
-function ProfilePage() {
-  return (
-    <div className="">
-      <div className="w-full h-100">
-        <img
-          className="w-full h-100 object-cover"
-          src="https://i.pinimg.com/originals/05/9d/5d/059d5d88f262e1b9a2db527111e89426.gif"
-          alt=""
-        />
-      </div>
-      <div className="w-4/5 mx-auto flex">
-      <div className="text-center w-20%">
-        <img
-          className="w-70 h-70 rounded-full mt-[-10%]"
-          src="https://i.pinimg.com/736x/dc/ac/bf/dcacbf81004d166a4288fde0c47ff855.jpg"
-          alt="ava"
-          />
-        <h2 className="text-amber-50 text-2xl mt-5">Fish_ruff</h2>
-        </div>
-        <div className="text-center">
-            <p>spisok</p>
-        </div>
+import Avatar3D from "./Avatar3d";
 
-      </div>
-    </div>
-  );
+
+function ProfilePage() {
+    return (
+        <div className="relative flex items-center justify-center w-full h-screen bg-cover bg-center" 
+             style={{ backgroundImage: "url('../../public/bg.jpg')" }}>
+            <div className="absolute inset-0 bg-black/40"></div>
+
+            <div className="relative z-10 flex gap-10 p-10 bg-gray-900/80 rounded-xl shadow-lg">
+                {/* Левая часть - Информация */}
+                <div className="text-white">
+                    <h2 className="text-3xl font-bold">Твой Ник</h2>
+                    <p className="text-lg">Просмотрено: 120</p>
+                    <p className="text-lg">Запланировано: 30</p>
+                    <p className="text-lg">Брошено: 5</p>
+                </div>
+
+                {/* Правая часть - 3D Аватар */}
+                <div className="w-150 h-150 p-10">
+                    <Avatar3D />
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default ProfilePage;
