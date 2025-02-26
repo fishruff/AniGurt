@@ -1,9 +1,9 @@
 "use client";
 
 import { useQuery } from "@apollo/client";
-import { GET_TOP_ANIME } from "./apolloClient";
+import { GET_TOP_ANIME } from "../apolloClient";
 import { Link } from "react-router-dom";
-import Spiner from "./Spiner";
+import Spiner from "../Spiner";
 
 export default function TopAnime() {
   const { loading, error, data } = useQuery(GET_TOP_ANIME);

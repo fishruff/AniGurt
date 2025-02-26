@@ -8,7 +8,7 @@ function Avatar3D() {
         <Canvas camera={{ position: [0, 0.5, 4] }} className="w-full h-full">
             <ambientLight intensity={0.5} />
             <directionalLight position={[5, 5, 5]} intensity={1} />
-            <primitive object={scene} scale={0.15} position={[0, -2, 0]} />
+            <primitive object={scene} scale={0.19} position={[0, -2, 0]} />
             <OrbitControls enableZoom={false} />
         </Canvas>
     );

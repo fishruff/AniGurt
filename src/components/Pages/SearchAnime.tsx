@@ -1,8 +1,8 @@
 "use client";
 
 import { useLazyQuery } from "@apollo/client";
-import { GET_ANIME_SEARCH } from "./apolloClient";
-import Spiner from "./Spiner";
+import { GET_ANIME_SEARCH } from "../apolloClient";
+import Spiner from "../Spiner";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 

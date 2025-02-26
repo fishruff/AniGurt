@@ -1,15 +1,15 @@
 import { ApolloProvider } from "@apollo/client";
 import Header from "../components/Header";
-import TopAnimes from "../components/TopAnimes";
+import TopAnimes from "../components/Pages/TopAnimes";
 import { client } from "../components/apolloClient";
 import { Routes, Route } from "react-router-dom";
-import AnimePage from "../components/AnimePage";
-import SearchAnime from "../components/SearchAnime";
-import Home from "../components/Home";
-import MangaPage from "../components/MangaPage";
+import AnimePage from "../components/Pages/AnimePage";
+import SearchAnime from "../components/Pages/SearchAnime";
+import Home from "../components/Pages/Home";
+import MangaPage from "../components/Pages/MangaPage";
 import Manga from "../components/Manga";
 import { Analytics } from "@vercel/analytics/react";
-import ProfilePage from "../components/ProfilePage";
+import ProfilePage from "../components/Pages/ProfilePage";
 
 function MainLayouts() {
   return (

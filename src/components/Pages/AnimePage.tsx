@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { GET_ANIME_BY_ID } from "./apolloClient";
-import Spiner from "./Spiner";
-import Player from "./Player";
+import { GET_ANIME_BY_ID } from "../apolloClient";
+import Spiner from "../Spiner";
+import Player from "../Player";
 
 
 interface Anime {

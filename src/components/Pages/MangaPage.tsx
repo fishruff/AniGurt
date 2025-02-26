@@ -2,8 +2,8 @@
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { GET_MANGA_BY_ID } from "./apolloClient";
-import Spiner from "./Spiner";
+import { GET_MANGA_BY_ID } from "../apolloClient";
+import Spiner from "../Spiner";
 
 interface Manga {
   id: number;

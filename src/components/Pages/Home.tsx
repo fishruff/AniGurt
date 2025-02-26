@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { GET_TOP_ANIME } from "./apolloClient";
-import Spiner from "./Spiner";
+import { GET_TOP_ANIME } from "../apolloClient";
+import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
