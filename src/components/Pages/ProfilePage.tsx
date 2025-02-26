@@ -1,11 +1,14 @@
 import Avatar3d from "../Avatar3d"; // Импорт 3D-аватара
 
-const ProfilePage = () => {
-  return (
-    <div className="relative w-full h-screen flex bg-gray-900 text-white p-10 " >
 
-<div className="absolute inset-0 w-full h-screen bg-center bg-cover"  style={{ backgroundImage: "url('../../public/bg.jpg')" }}></div>
+const ProfilePage = () => {
+
+  return (
+    <div className="relative w-full h-screen flex text-white p-10" >
+
+<div className="absolute inset-0 w-full h-screen bg-center bg-cover"  style={{ backgroundImage: "url('/bg.jpg')" }}></div>
 <div className="absolute inset-0 bg-black opacity-70"></div>
+
       {/* Левая часть с информацией */}
       <div className=" z-1 w-1/2 flex flex-col justify-around p-5">
         {/* Никнейм */}
