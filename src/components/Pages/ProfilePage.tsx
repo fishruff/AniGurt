@@ -1,10 +1,31 @@
-import Avatar3d from "../Avatar3d"; // Импорт 3D-аватара
+import Avatar3d from "../Avatar3d"; 
+import { logout, getCurrentUser } from "../../services/auth";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+  const [user] = useState(getCurrentUser());
 
-  return (
+  useEffect(() => {
+    if (!user) {
+      navigate("/login"); 
+    }
+  }, [user, navigate]);
+
+  return user?(
+
+    
+
     <div className="relative w-full h-screen flex text-white p-10" >
+
+<div className="text-white p-10">
+      <h1 className="text-3xl">Привет, {user?.username || "Гость"}!</h1>
+      <button className="bg-red-500 px-4 py-2 rounded mt-4" onClick={logout}>
+        Выйти
+      </button>
+    </div>
 
 <div className="absolute inset-0 w-full h-screen bg-center bg-cover"  style={{ backgroundImage: "url('/bg.jpg')" }}></div>
 <div className="absolute inset-0 bg-black opacity-70"></div>
@@ -42,7 +63,7 @@ const ProfilePage = () => {
         <Avatar3d/>
       </div>
     </div>
-  );
+  ):null
 };
 
 export default ProfilePage;
