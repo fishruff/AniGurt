@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCurrentUser, UserRecord } from "../services/auth";
 
 function Header() {
+
+  const [user, setUser] = useState<UserRecord | null>(null);
+
+  useEffect(() => {
+    getCurrentUser().then((data) => {
+      if (data) setUser(data);
+    });
+  }, []);
+
   return (
     <div className="text-white w-full flex flex-row justify-between shadow-[#ffffff12] shadow-2xs items-center p-5">
       <a href="/">
@@ -18,9 +29,20 @@ function Header() {
         <Link to={`/search`}>
           <p>Поиск</p>
         </Link>
-        <Link to={`/me`}>
-        <p>me</p>
+
+        
+        {user ? (
+        <div className="flex items-center gap-4">
+          <Link to={`/me`}>
+          <span>{user.name}</span>
+          </Link>
+        </div>
+      ) : (
+        <Link to={`/login`} className="bg-blue-500 p-2 rounded-md">
+          Войти
         </Link>
+      )}
+
       </div>
     </div>
   );

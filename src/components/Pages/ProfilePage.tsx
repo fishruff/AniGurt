@@ -1,18 +1,16 @@
 import Avatar3d from "../Avatar3d"; 
-import { logout, getCurrentUser } from "../../services/auth";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { getCurrentUser, UserRecord, logout } from "../../services/auth";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-  const [user] = useState(getCurrentUser());
+  const [user, setUser] = useState<UserRecord | null>(null);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login"); 
-    }
-  }, [user, navigate]);
+    getCurrentUser().then((data) => {
+      if (data) setUser(data);
+    });
+  }, []);
+
 
   return user?(
 
@@ -20,12 +18,12 @@ const ProfilePage = () => {
 
     <div className="relative w-full h-screen flex text-white p-10" >
 
-<div className="text-white p-10">
-      <h1 className="text-3xl">Привет, {user?.username || "Гость"}!</h1>
+{/* <div className="text-white p-10">
+      <h1 className="text-3xl">Привет, {user?.name || "Гость"}!</h1>
       <button className="bg-red-500 px-4 py-2 rounded mt-4" onClick={logout}>
         Выйти
       </button>
-    </div>
+    </div> */}
 
 <div className="absolute inset-0 w-full h-screen bg-center bg-cover"  style={{ backgroundImage: "url('/bg.jpg')" }}></div>
 <div className="absolute inset-0 bg-black opacity-70"></div>
@@ -33,7 +31,7 @@ const ProfilePage = () => {
       {/* Левая часть с информацией */}
       <div className=" z-1 w-1/2 flex flex-col justify-around p-5">
         {/* Никнейм */}
-        <h1 className="text-4xl font-bold">fish_ruff</h1>
+        <h1 className="text-4xl font-bold">{user.name}</h1>
 
         {/* Блок статистики */}
         <div className="bg-gray-800 p-5 rounded-lg shadow-md">
@@ -56,6 +54,9 @@ const ProfilePage = () => {
             <li>⏳ Время за аниме: <span className="text-blue-400">300 часов</span></li>
           </ul>
         </div>
+        <button className="bg-red-500 p-4 rounded mt-4  w-1/5" onClick={logout}>
+        Выйти
+      </button>
       </div>
 
       {/* Правая часть с 3D-аватаром */}
