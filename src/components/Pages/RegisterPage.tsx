@@ -1,22 +1,35 @@
 import React, { useState } from "react";
-import { login } from "../../services/auth";
+import { register } from "../../services/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+
+const RegestrationPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUserName] = useState("");
   const navigate =useNavigate();
 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email || !password || !username) {
+      alert("Пожалуйста, заполните все поля.");
+      return;
+    }
     try {
-      await login(email, password);
+      if(password==confirmPassword){
+        await register(email, password, username);
+        alert('Регистрация успешна!');
         navigate('/me');
+      } alert('Пароли не  совпадают');
+      
     } catch (error) {
       alert("Ошибка: " + error);
     }
   };
+    
+  
 
   
 
@@ -29,6 +42,12 @@ const LoginPage = () => {
         </h2>
         <input
           className="bg-gray-800 p-2 rounded-md outline-0"
+          placeholder="name"
+          type="text"
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <input
+          className="bg-gray-800 p-2 rounded-md outline-0"
           placeholder="email"
           type="email"
           onChange={(e) => setEmail(e.target.value)}
@@ -39,8 +58,14 @@ const LoginPage = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <input
+          className="bg-gray-800 p-2 rounded-md outline-0"
+          placeholder="confirm password"
+          type="password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
         <button onClick={handleSubmit} className="bg-[#56a6f7] p-5 rounded-md">
-          Вход
+          Зарегестрироваться
         </button>
         <div className="text-center">
           <h2 className="text-2xl mb-5">То же самое что и </h2>
@@ -58,9 +83,9 @@ const LoginPage = () => {
         </div>
         <div className="text-center">
           <h2>
-            Еще нет аккаунта?{" "}
-            <Link to="/register" className="text-[#56a6f7] font-bold">
-              Зарегестрируйся!
+            Уже есть аккаунт?{" "}
+            <Link to="/login" className="text-[#56a6f7] font-bold">
+              Войти!
             </Link>
           </h2>
         </div>
@@ -70,4 +95,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegestrationPage;

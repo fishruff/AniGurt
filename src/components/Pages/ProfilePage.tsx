@@ -1,15 +1,28 @@
 import Avatar3d from "../Avatar3d"; 
 import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord, logout } from "../../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const [user, setUser] = useState<UserRecord | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCurrentUser().then((data) => {
-      if (data) setUser(data);
+      if (data) {
+        setUser(data);
+      } else {
+        navigate("/login"); // Перенаправление, если пользователя нет
+      }
     });
-  }, []);
+  }, [navigate]); 
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+    window.location.reload();
+  };
+  
 
 
   return user?(
@@ -18,12 +31,6 @@ const ProfilePage = () => {
 
     <div className="relative w-full h-screen flex text-white p-10" >
 
-{/* <div className="text-white p-10">
-      <h1 className="text-3xl">Привет, {user?.name || "Гость"}!</h1>
-      <button className="bg-red-500 px-4 py-2 rounded mt-4" onClick={logout}>
-        Выйти
-      </button>
-    </div> */}
 
 <div className="absolute inset-0 w-full h-screen bg-center bg-cover"  style={{ backgroundImage: "url('/bg.jpg')" }}></div>
 <div className="absolute inset-0 bg-black opacity-70"></div>
@@ -54,7 +61,7 @@ const ProfilePage = () => {
             <li>⏳ Время за аниме: <span className="text-blue-400">300 часов</span></li>
           </ul>
         </div>
-        <button className="bg-red-500 p-4 rounded mt-4  w-1/5" onClick={logout}>
+        <button className="bg-red-500 p-4 rounded mt-4  w-1/5" onClick={handleLogout}>
         Выйти
       </button>
       </div>

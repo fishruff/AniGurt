@@ -11,6 +11,7 @@ import Manga from "../components/Manga";
 import { Analytics } from "@vercel/analytics/react";
 import ProfilePage from "../components/Pages/ProfilePage";
 import LoginPage from "../components/Pages/LoginPage";
+import RegestrationPage from "../components/Pages/RegisterPage";
 
 function MainLayouts() {
   return (
@@ -27,6 +28,7 @@ function MainLayouts() {
           <Route path="/manga/:id" element={<MangaPage />} />
           <Route path="/me" element={<ProfilePage/>}/>
           <Route  path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<RegestrationPage/>}/>
         </Routes>
       </ApolloProvider>
       <Analytics />
