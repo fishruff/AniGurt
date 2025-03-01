@@ -12,6 +12,7 @@ import { Analytics } from "@vercel/analytics/react";
 import ProfilePage from "../components/Pages/ProfilePage";
 import LoginPage from "../components/Pages/LoginPage";
 import RegestrationPage from "../components/Pages/RegisterPage";
+import NotFound from "../components/Pages/NotFound";
 
 function MainLayouts() {
   return (
@@ -29,6 +30,7 @@ function MainLayouts() {
           <Route path="/me" element={<ProfilePage/>}/>
           <Route  path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegestrationPage/>}/>
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </ApolloProvider>
       <Analytics />
