@@ -34,11 +34,12 @@ function Header() {
         {user ? (
         <div className="flex items-center gap-4">
           <Link to={`/me`}>
+          {/* <img className="w-10 h-10 rounded-full" src="https://anigurt-backend.onrender.com/api/files/_pb_users_auth_/{user.id}/{user?.avatar}" alt="" /> */}
           <span>{user.name}</span>
           </Link>
         </div>
       ) : (
-        <Link to={`/login`} className="bg-blue-500 p-2 rounded-md">
+        <Link to={`/login`} className="bg-[#e82c4c] p-2 rounded-md">
           Войти
         </Link>
       )}

@@ -1,13 +1,13 @@
 import { ApolloProvider } from "@apollo/client";
 import Header from "../components/Header";
-import TopAnimes from "../components/Pages/TopAnimes";
+import TopAnimes from "../components/Pages/TopAnimeList";
 import { client } from "../components/apolloClient";
 import { Routes, Route } from "react-router-dom";
 import AnimePage from "../components/Pages/AnimePage";
 import SearchAnime from "../components/Pages/SearchAnime";
 import Home from "../components/Pages/Home";
 import MangaPage from "../components/Pages/MangaPage";
-import Manga from "../components/Manga";
+import Manga from "../components/MangaList";
 import { Analytics } from "@vercel/analytics/react";
 import ProfilePage from "../components/Pages/ProfilePage";
 import LoginPage from "../components/Pages/LoginPage";

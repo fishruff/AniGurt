@@ -64,19 +64,19 @@ const RegestrationPage = () => {
           type="password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button onClick={handleSubmit} className="bg-[#56a6f7] p-5 rounded-md">
+        <button onClick={handleSubmit} className="bg-[#e82c4c] p-5 rounded-md">
           Зарегестрироваться
         </button>
         <div className="text-center">
           <h2 className="text-2xl mb-5">То же самое что и </h2>
           <div className="flex flex-row justify-between mb-5">
-            <p className="bg-gray-600 p-3 rounded-2xl border-2 border-[#56a6f7]">
+            <p className="bg-gray-600 p-3 rounded-2xl border-2 border-[#fff]">
               Google
             </p>
-            <p className="bg-gray-600 p-3 rounded-2xl border-2 border-[#56a6f7]">
+            <p className="bg-gray-600 p-3 rounded-2xl border-2 border-[#fff]">
               Discord
             </p>
-            <p className="bg-gray-600 p-3 rounded-2xl border-2 border-[#56a6f7]">
+            <p className="bg-gray-600 p-3 rounded-2xl border-2 border-[#fff]">
               Shikimori
             </p>
           </div>
@@ -84,7 +84,7 @@ const RegestrationPage = () => {
         <div className="text-center">
           <h2>
             Уже есть аккаунт?{" "}
-            <Link to="/login" className="text-[#56a6f7] font-bold">
+            <Link to="/login" className="text-[#e82c4c] font-bold">
               Войти!
             </Link>
           </h2>
