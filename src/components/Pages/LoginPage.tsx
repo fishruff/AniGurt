@@ -13,6 +13,7 @@ const LoginPage = () => {
     try {
       await login(email, password);
         navigate('/me');
+        window.location.reload();
     } catch (error) {
       alert("Ошибка: " + error);
     }
