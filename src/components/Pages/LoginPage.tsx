@@ -61,7 +61,7 @@ const LoginPage = () => {
           <h2>
             Еще нет аккаунта?{" "}
             <Link to="/register" className="text-[#56a6f7] font-bold">
-              Зарегестрируйся!
+              Зарегистрируйся!
             </Link>
           </h2>
         </div>

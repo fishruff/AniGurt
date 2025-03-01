@@ -38,7 +38,7 @@ const RegestrationPage = () => {
       <img className="w-4/6 object-cover h-screen blur-xs" src="./bg.jpg" alt="" />
       <div className="flex mx-auto flex-col gap-5 w-2/6 p-10">
         <h2 className="mb-5 text-3xl flex gap-2">
-          Вход на <p className="font-bold">AniGurt</p>
+          Регистрация на <p className="font-bold">AniGurt</p>
         </h2>
         <input
           className="bg-gray-800 p-2 rounded-md outline-0"
