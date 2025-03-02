@@ -18,6 +18,7 @@ function MainLayouts() {
   return (
     <div>
       <Header />
+    <div className="">
 
       <ApolloProvider client={client}>
         <Routes>
@@ -33,6 +34,7 @@ function MainLayouts() {
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </ApolloProvider>
+    </div>
       <Analytics />
     </div>
   );
