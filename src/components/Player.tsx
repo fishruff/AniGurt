@@ -3,16 +3,16 @@ interface PlayerProps {
 }
 const Player: React.FC<PlayerProps> = ({ urlPlayer }) => {
   return (
-    <div className="flex justify-around mt-20 mb-20">
+    <div className="flex justify-around flex-col lg:flex-row gap-5 mt-20 mb-20">
       <iframe
-        className=" rounded-2xl"
+        className=" rounded-2xl w-full h-[20vh]"
         src={urlPlayer}
-        width="910px"
-        height="570px"
+        // width="910px"
+        // height="570px"
         allowFullScreen
       ></iframe>
       <iframe
-        className="rounded-2xl hidden lg:block"
+        className="rounded-2xl w-full h-[60vh]"
         src="https://www.crazygames.com/embed/blockbuster-puzzle"
         allow="gamepad *;"
       ></iframe>
