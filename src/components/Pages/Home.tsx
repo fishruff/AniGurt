@@ -37,7 +37,7 @@ function Home() {
         loop={true}
         autoplay={{ delay: 10000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        className="h-[70%]"
+        className="h-[70%] w-full"
         navigation
       >
         {data.animes.slice(0, 6).map((anime: Anime) => (

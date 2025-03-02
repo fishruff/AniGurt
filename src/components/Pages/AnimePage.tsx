@@ -4,7 +4,6 @@ import { GET_ANIME_BY_ID } from "../apolloClient";
 import Spiner from "../Spiner";
 import Player from "../Player";
 
-
 interface Anime {
   id: number;
   descriptionHtml?: string;
@@ -21,10 +20,10 @@ interface Anime {
   episodes: number;
   airedOn?: { year: number };
   genres: { id: number; name: string; russian: string; kind: string }[];
-  screenshots: {id: number; originalUrl:string}[];
+  screenshots: { id: number; originalUrl: string }[];
 }
 
-const AnimePage= () => {
+const AnimePage = () => {
   const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useQuery(GET_ANIME_BY_ID, {
     variables: { id },
@@ -32,67 +31,87 @@ const AnimePage= () => {
 
   if (loading) return <Spiner />;
   if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
-  if (!data || !data.animes || data.animes.length === 0) return <p>Аниме не найдено</p>;
+  if (!data || !data.animes || data.animes.length === 0)
+    return <p>Аниме не найдено</p>;
 
   const anime: Anime = data.animes[0];
   const newDesc = anime.descriptionHtml || "Описания пока нет :(";
-  const urlPlayer = '//kodik.cc/find-player?shikimoriID='+anime.id+'&types=anime,anime-serial&episode=1';
+  const urlPlayer =
+    "//kodik.cc/find-player?shikimoriID=" +
+    anime.id +
+    "&types=anime,anime-serial&episode=1";
 
   console.log(data);
-  
 
   return (
-    <div className="p-10 text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
+    <div className="p-10  text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
+      <div
+        className="absolute  inset-0 w-full h-[50%] bg-cover bg-center blur-xl"
+        style={{ backgroundImage: `url(${anime.poster.originalUrl})` }}
+      ></div>
+      <div className="absolute inset-0 bg-black opacity-70"></div>
 
-        <div className="absolute  inset-0 w-full h-[50%] bg-cover bg-center blur-xl"  style={{ backgroundImage: `url(${anime.poster.originalUrl})` }}></div>
-        <div className="absolute inset-0 bg-black opacity-70"></div>
+      <div className="flex flex-col relative w-9/10 inset-0 justify-between mx-auto gap-20 z-10">
+        <div className="flex flex-col lg:flex-row">
+          <img
+            src={anime.poster.originalUrl}
+            alt={anime.name}
+            className=" w-90 h-120 rounded-lg inset-0 mx-auto lg:mx-0"
+          />
+          <div className="lg:p-10 lg:pt-0">
+            <div className="mt-10 lg:mt-0">
+              <p className="text-2xl text-white font-bold">{anime.russian}</p>
+              <p className="text-amber-50 gap-5 flex items-center">
+                {anime.name}
+                <a
+                  className="text-[#56a6f7] text-xs"
+                  href={anime.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  shikimori
+                </a>
+              </p>
 
-      <div className="flex flex-col relative w-4/5 justify-between mx-auto gap-20 z-10">
-        <div className="flex flex-row">
-        <img src={anime.poster.originalUrl} alt={anime.name} className=" w-90 h-120 rounded-lg" />
-        <div className="p-10 pt-0">
-        <div className="max-w-[70%]">
-          <p className="text-2xl text-white font-bold">{anime.russian}</p>
-          <p className="text-amber-50"> {anime.name}   <a className="text-[#56a6f7] text-xs" href={anime.url} target="_blank" rel="noopener noreferrer">shikimori</a></p>
-           
-            <div className="flex gap-10">
-                <p className="text-[#7e8597] p-1.5 border-1 border-amber-[#7e8597] rounded-2xl">{anime.rating}</p>
-                <p className="text-[#7e8597] p-1.5 border-1 border-amber-[#7e8597] rounded-2xl">{anime.airedOn?.year}</p>
-                <p className="text-[#7e8597] p-1.5 border-1 border-amber-[#7e8597] rounded-2xl">{anime.kind}</p>
-                
+              <div className="flex gap-10 mt-5 *:text-[#7e8597] *:p-1.5 *:border-1 *:border-amber-[#7e8597] *:rounded-2xl">
+                <p className="">{anime.rating}</p>
+                <p className="">{anime.airedOn?.year}</p>
+                <p className="">{anime.kind}</p>
+              </div>
+
+              <p className=" text-2xl mt-5">Информация</p>
+              <div className="grid grid-cols-2 gap-2 *:mt-2">
+                <p className="">Оценка: </p>
+                <p>{anime.score}</p>
+                <p className="">Эпизодов: </p>
+                <p>{anime.episodes}</p>
+                <p className="">Статус: </p>
+                <p>{anime.status}</p>
+              </div>
+              <p className=" text-2xl mt-2 mb-2">Описание</p>
+              <p
+                dangerouslySetInnerHTML={{ __html: newDesc }}
+                className="mt-2"
+              ></p>
+              <div className="mt-4">
+                <h3 className="text-xl">Жанры:</h3>
+                <ul className="flex flex-col lg:flex-row gap-5">
+                  {anime.genres.map((genre) => (
+                    <li key={genre.id} className="bg-gray-800 p-1 rounded-md">
+                      {genre.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-
-            <p className=" text-2xl">Информация</p>
-          <div className="grid grid-cols-2 gap-2">
-            <p className="mt-2">Оценка: </p>
-            <p>{anime.score}</p>
-            <p className="mt-2">Эпизодов: </p>
-            <p>{anime.episodes}</p>
-            <p className="mt-2">Статус: </p>
-            <p>{anime.status}</p>
-          </div>
-          <p className=" text-2xl">Описание</p>
-          <p dangerouslySetInnerHTML={{ __html: newDesc }} className="mt-2"></p>
-          <div className="mt-4">
-            <h3 className="text-xl">Жанры:</h3>
-            <ul className="flex gap-5">
-              {anime.genres.map((genre) => (
-                <li key={genre.id} className="bg-gray-800 p-1 rounded-md">
-                  {genre.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-          </div>
           </div>
         </div>
-      <div className="">
-        <Player urlPlayer={urlPlayer}/>
-      </div>
+        <div className="">
+          <Player urlPlayer={urlPlayer} />
+        </div>
       </div>
     </div>
   );
 };
-
 
 export default AnimePage;

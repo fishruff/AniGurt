@@ -29,7 +29,7 @@ const ProfilePage = () => {
 
     
 
-    <div className="relative w-full h-screen flex text-white p-10" >
+    <div className="relative w-full h-screen flex flex-col text-white p-10" >
 
 
 <div className="absolute inset-0 w-full h-screen bg-center bg-cover"  style={{ backgroundImage: "url('/bg.jpg')" }}></div>

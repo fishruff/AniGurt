@@ -12,7 +12,7 @@ const Player: React.FC<PlayerProps> = ({ urlPlayer }) => {
         allowFullScreen
       ></iframe>
       <iframe
-        className="rounded-2xl"
+        className="rounded-2xl hidden lg:block"
         src="https://www.crazygames.com/embed/blockbuster-puzzle"
         allow="gamepad *;"
       ></iframe>
