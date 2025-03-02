@@ -97,7 +97,7 @@ const RegistrationPage = () => {
           </div>
 
           {/* Ссылка на вход */}
-          <div className="text-center mt-6">
+          <div className="text-center mt-6 mb-20">
             <h2>
               Уже есть аккаунт?{" "}
               <Link to="/login" className="text-[#e82c4c] font-bold hover:underline">
