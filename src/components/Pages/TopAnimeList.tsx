@@ -4,9 +4,13 @@ import { useQuery } from "@apollo/client";
 import { GET_TOP_ANIME } from "../apolloClient";
 import { Link } from "react-router-dom";
 import Spiner from "../Spiner";
+import { useEffect } from "react";
 
 export default function TopAnime() {
   const { loading, error, data } = useQuery(GET_TOP_ANIME);
+  useEffect(() => {
+    document.title = "Аниме | AniGurt";
+  });
 
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;

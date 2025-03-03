@@ -5,6 +5,7 @@ import { GET_ANIME_SEARCH } from "../apolloClient";
 import Spiner from "../Spiner";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function SearchAnime() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,6 +17,9 @@ function SearchAnime() {
       searchAnime({ variables: { query: searchTerm } });
     }
   };
+    useEffect(() => {
+      document.title = "Поиск Аниме | AniGurt";
+    });
 
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;

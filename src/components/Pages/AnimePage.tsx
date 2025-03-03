@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/client";
 import { GET_ANIME_BY_ID } from "../apolloClient";
 import Spiner from "../Spiner";
 import Player from "../Player";
+import { useEffect } from "react";
+import RelatedAnimeList from "../RelatedAnimeList";
 
 interface Anime {
   id: number;
@@ -24,34 +26,38 @@ interface Anime {
 }
 
 const AnimePage = () => {
-  const { id } = useParams<{ id: string }>();
-  const { loading, error, data } = useQuery(GET_ANIME_BY_ID, {
-    variables: { id },
-  });
 
-  if (loading) return <Spiner />;
-  if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
-  if (!data || !data.animes || data.animes.length === 0)
-    return <p>Аниме не найдено</p>;
+    const { id } = useParams<{ id: string }>();
+    const { loading, error, data } = useQuery(GET_ANIME_BY_ID, { variables: { id } });
+  
+    const anime: Anime | undefined = data?.animes?.[0];
+  
+    useEffect(() => {
+      if (anime) {
+        document.title = anime.russian || "Аниме | AniGurt";
+      } else {
+        document.title = "Аниме | AniGurt";
+      }
+    }, [anime]);
+  
+    if (loading) return <Spiner />;
+    if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
+    if (!anime) return <p>Аниме не найдено</p>;
 
-  const anime: Anime = data.animes[0];
-  const newDesc = anime.descriptionHtml || "Описания пока нет :(";
-  const urlPlayer =
-    "//kodik.cc/find-player?shikimoriID=" +
-    anime.id +
-    "&types=anime,anime-serial&episode=1";
-
-  console.log(data);
+  
+ 
+  const newDesc = anime.description!==null ? anime.descriptionHtml : "Описания пока нет :(";
+  const urlPlayer ="//kodik.cc/find-player?shikimoriID="+anime.id +"&types=anime,anime-serial&episode=1";
 
   return (
-    <div className="p-10  text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
+    <div className="p-10   text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
       <div
         className="absolute  inset-0 w-full h-[50%] bg-cover bg-center blur-xl"
         style={{ backgroundImage: `url(${anime.poster.originalUrl})` }}
       ></div>
       <div className="absolute inset-0 bg-black opacity-70"></div>
 
-      <div className="flex flex-col relative w-9/10 inset-0 justify-between mx-auto gap-20 z-10">
+      <div className="flex flex-col lg:mt-20 relative w-9/10 inset-0 justify-between mx-auto gap-20 z-10">
         <div className="flex flex-col lg:flex-row">
           <img
             src={anime.poster.originalUrl}
@@ -90,7 +96,7 @@ const AnimePage = () => {
               </div>
               <p className=" text-2xl mt-2 mb-2">Описание</p>
               <p
-                dangerouslySetInnerHTML={{ __html: newDesc }}
+                dangerouslySetInnerHTML={{ __html: newDesc || "" }}
                 className="mt-2"
               ></p>
               <div className="mt-4">
@@ -105,6 +111,9 @@ const AnimePage = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="">
+          <RelatedAnimeList animeId={anime.id}/>
         </div>
         <div className="">
           <Player urlPlayer={urlPlayer} />
