@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_MANGA_BY_ID } from "../apolloClient";
 import Spiner from "../Spiner";
+import { useEffect } from "react";
 
 interface Manga {
   id: number;
@@ -34,6 +35,17 @@ function MangaPage() {
     }
   );
 
+  const manga: Manga | undefined = data?.mangas?.[0];
+
+  useEffect(() => {
+    if (manga) {
+      document.title = manga.russian || "Манга | AniGurt";
+    } else {
+      document.title = "Манга | AniGurt";
+    }
+  }, [manga]);
+ 
+
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
 
@@ -41,23 +53,24 @@ function MangaPage() {
     return <p>Данные не найдены.</p>;
   }
 
-  const manga = data.mangas[0];
 
-  const newDesc = manga.descriptionHtml || "Описания пока нет :(";
+  
+
+  const newDesc = manga?.descriptionHtml || "Описания пока нет :(";
 
   return (
     <div className="p-10 flex gap-20 text-[#f4f4f4]">
       <img
-        src={manga.poster.originalUrl}
-        alt={manga.name}
+        src={manga?.poster.originalUrl}
+        alt={manga?.name}
         className="w-64 h-128 rounded-lg"
       />
       <div className="p-10 pt-0">
         <p className="text-2xl font-bold">
-          {manga.russian} / {manga.name}{" "}
+          {manga?.russian} / {manga?.name}{" "}
           <a
             className="text-[#56a6f7] text-xs"
-            href={manga.url}
+            href={manga?.url}
             target="_blank"
           >
             shikimori
@@ -66,16 +79,16 @@ function MangaPage() {
         <p dangerouslySetInnerHTML={{ __html: newDesc }} className="mt-2"></p>
         <div className="flex justify-between">
           <p className="mt-2 bg-blue-900 p-5 rounded-2xl">
-            Оценка: {manga.score}
+            Оценка: {manga?.score}
           </p>
           <p className="mt-2 bg-green-900 p-5 rounded-2xl">
-            Статус: {manga.status}
+            Статус: {manga?.status}
           </p>
         </div>
         <div className="mt-4">
           <h3 className="text-xl">Жанры:</h3>
           <ul className="flex gap-5">
-            {manga.genres.map((genre) => (
+            {manga?.genres.map((genre) => (
               <li className="bg-gray-800 p-1 rounded-md" key={genre.id}>
                 {genre.name}
               </li>

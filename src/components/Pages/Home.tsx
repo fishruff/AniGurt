@@ -1,11 +1,13 @@
 import { useQuery } from "@apollo/client";
-import { GET_TOP_ANIME } from "../apolloClient";
+import { GET_NEW_RANKED_ANIME } from "../apolloClient";
 import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useEffect } from "react";
 import "swiper/swiper-bundle.css";
+
+// season+'_'+year
 
 interface Anime {
   id: number;
@@ -16,7 +18,35 @@ interface Anime {
 }
 
 function Home() {
-  const { loading, error, data } = useQuery(GET_TOP_ANIME);
+  function getSeason(): string {
+    const date = new Date();
+    const month = date.getMonth() + 1; // getMonth() возвращает 0-11, поэтому добавляем 1
+    let year = date.getFullYear();
+
+    let season: string;
+
+    if (month >= 4 && month <= 6) {
+      season = "spring";
+    } else if (month >= 7 && month <= 9) {
+      season = "summer";
+    } else if (month >= 10 && month <= 12) {
+      season = "fall";
+    } else {
+      season = "winter";
+      if (month === 12) {
+        year += 1;
+      }
+    }
+
+    return `${season}_${year}`;
+  }
+
+  const season: string = getSeason();
+  console.log(season);
+
+  const { loading, error, data } = useQuery(GET_NEW_RANKED_ANIME, {
+    variables: { season },
+  });
 
   useEffect(() => {
     document.title = "AniGurt";
@@ -24,6 +54,9 @@ function Home() {
 
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
+
+  console.log("data: " + data);
+  if (!data || !data.animes) return <p>Нет данных</p>;
 
   return (
     <div className="h-screen w-full">
@@ -36,23 +69,27 @@ function Home() {
         pagination={{ clickable: true }}
         navigation
         className="h-[70%] w-full"
-        style={{
-          "--swiper-theme-color": "#e82c4c", // Изменение цвета слайдера
-        } as React.CSSProperties}
+        style={
+          {
+            "--swiper-theme-color": "#e82c4c", // Изменение цвета слайдера
+          } as React.CSSProperties
+        }
       >
         {data.animes.slice(0, 6).map((anime: Anime) => (
           <SwiperSlide key={anime.id}>
             <div className="relative w-full h-full">
               {/* Затемнение */}
               <div className="absolute inset-0 bg-black/50"></div>
-              
+
               {/* Фоновое изображение */}
               <img
-                src={anime.screenshots[0]?.originalUrl || anime.poster.originalUrl}
+                src={
+                  anime.screenshots[0]?.originalUrl || anime.poster.originalUrl
+                }
                 alt={anime.name}
                 className="w-full h-full object-cover"
               />
-              
+
               {/* Текст поверх */}
               <div className="absolute bottom-10 left-5 sm:left-10 text-white">
                 <Link to={`/anime/${anime.id}`}>
