@@ -6,16 +6,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useEffect } from "react";
 import "swiper/swiper-bundle.css";
+// import AnimeCard from "../AnimeCard";
+import { Anime } from "../../types/Anime";
 
-// season+'_'+year
-
-interface Anime {
-  id: number;
-  name: string;
-  russian: string;
-  poster: { originalUrl: string };
-  screenshots: { id: number; originalUrl: string }[];
-}
 
 function Home() {
   function getSeason(): string {
@@ -42,7 +35,6 @@ function Home() {
   }
 
   const season: string = getSeason();
-  console.log(season);
 
   const { loading, error, data } = useQuery(GET_NEW_RANKED_ANIME, {
     variables: { season },
@@ -55,8 +47,9 @@ function Home() {
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
 
-  console.log("data: " + data);
   if (!data || !data.animes) return <p>Нет данных</p>;
+
+  console.log(data);
 
   return (
     <div className="h-screen w-full">
@@ -102,6 +95,16 @@ function Home() {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* <div className="mt-5 p-10">
+        <h2 className="text-2xl text-amber-50">Аниме зимнего сезона 2025</h2>
+
+        <ul className="w-full gap-6 flex overflow-hidden">
+        {data.animes.map((anime: Anime) => (
+        <AnimeCard key={anime.id} anime={anime} />
+      ))}
+        </ul>
+      </div> */}
     </div>
   );
 }
