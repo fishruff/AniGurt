@@ -1,13 +1,13 @@
 import { useQuery } from "@apollo/client";
-import { GET_NEW_RANKED_ANIME } from "../apolloClient";
+import { GET_NEW_RANKED_ANIME, GET_EX_SEASON_ANIME } from "../apolloClient";
 import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { useEffect } from "react";
 import "swiper/swiper-bundle.css";
-// import AnimeCard from "../AnimeCard";
+import { useEffect } from "react";
 import { Anime } from "../../types/Anime";
+import AnimeList from "../AnimeList";
 
 
 function Home() {
@@ -40,6 +40,8 @@ function Home() {
     variables: { season },
   });
 
+  const ex_season =  useQuery(GET_EX_SEASON_ANIME);
+
   useEffect(() => {
     document.title = "AniGurt";
   }, []);
@@ -49,7 +51,7 @@ function Home() {
 
   if (!data || !data.animes) return <p>Нет данных</p>;
 
-  console.log(data);
+  
 
   return (
     <div className="h-screen w-full">
@@ -96,15 +98,12 @@ function Home() {
         ))}
       </Swiper>
 
-      {/* <div className="mt-5 p-10">
-        <h2 className="text-2xl text-amber-50">Аниме зимнего сезона 2025</h2>
+      <div className="mt-5 p-5">
+        <h2 className="text-2xl text-amber-50 mb-5">Аниме прошлого сезона</h2>
 
-        <ul className="w-full gap-6 flex overflow-hidden">
-        {data.animes.map((anime: Anime) => (
-        <AnimeCard key={anime.id} anime={anime} />
-      ))}
-        </ul>
-      </div> */}
+        <AnimeList animeList={ex_season.data?.animes || []} loading={ex_season.loading} />
+
+      </div>
     </div>
   );
 }
