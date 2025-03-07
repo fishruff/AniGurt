@@ -13,32 +13,25 @@ const genres = {
   "9": "Fantasy",
 };
 
-const years = ["2025","2024", "2023", "2022", "2021", "2020"];
-
 const seasons = ["winter", "spring", "summer", "fall"];
 const status = ["released", "anons", "ongoing"];
 
 const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string>>({
     season: "",
-    year: "",
     genre: "",
     status: "",
   });
 
   const handleChange = (category: string, value: string) => {
-    const updatedFilters = { ...selectedFilters, [category]: value };
+    const updatedFilters = { ...selectedFilters, [category]: value || "" };
     setSelectedFilters(updatedFilters);
     onFilterChange(updatedFilters);
-  
-    console.log("Фильтр изменён:", category, value);
   };
-  
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg w-200 h-full">
+    <div className="p-4 bg-gray-800 text-white rounded-lg w-64 h-full">
       <h2 className="text-xl mb-4">Фильтры</h2>
-
 
       {/* СЕЗОН */}
       <div className="mb-4">
@@ -49,17 +42,15 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
           onChange={(e) => handleChange("season", e.target.value)}
         >
           <option value="">Все</option>
-          {seasons.map((season) =>
-            years.map((year) => (
-              <option key={`${season}_${year}`} value={`${season}_${year}`}>
-                {season.charAt(0).toUpperCase() + season.slice(1)} {year}
-              </option>
-            ))
-          )}
+          {seasons.map((season) => (
+            <option key={season} value={season}>
+              {season.charAt(0).toUpperCase() + season.slice(1)}
+            </option>
+          ))}
         </select>
       </div>
 
-      {/* ГОД */}
+      {/* СТАТУС */}
       <div className="mb-4">
         <h3 className="font-bold mb-1">Статус</h3>
         <select

@@ -8,8 +8,8 @@ export const client = new ApolloClient({
 
 
 export const GET_FILTERED_ANIME = gql`
-  query GetFilteredAnime($season: SeasonString, $genres: String, $status: String) {
-    animes(season: $season, genre: $genres, status: $status, limit: 50) {
+  query GetFilteredAnime($season: String, $genre: String, $status: String) {
+    animes(season: $season, genre: $genre, limit: 50, status: $status) {
     id
     malId
     name
