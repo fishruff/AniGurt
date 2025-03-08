@@ -3,7 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 
 // Настройка HTTP-ссылки
 const httpLink = new HttpLink({
-  uri: "/graphql", // Используем прокси
+  uri: "https://shikimori.one/api/graphql", // Укажите ваш GraphQL-эндпоинт
 });
 
 // Добавление заголовков

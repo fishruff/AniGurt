@@ -12,7 +12,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/graphql/, "/api/graphql"),
         headers: {
-          "User-Agent": "YourAppName/1.0 (your@email.com)",
+          "User-Agent": "Anigurt/1.0 (arsershoff@gmail.com)",
         },
       },
     },
