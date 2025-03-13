@@ -11,29 +11,34 @@ const genres = [
     name_ru: "Экшен",
   },
   {
+    id: 4,
+    name: "Comedy",
+    name_ru: "Комедия",
+  },
+  {
+    id: 22,
+    name: "Romance",
+    name_ru: "Романтика",
+  },
+  {
     id: 2,
     name: "Adventure",
     name_ru: "Приключения",
   },
   {
-    id: 3,
-    name: "Comedy",
-    name_ru: "Комедия",
-  },
-  {
-    id: 4,
-    name: "Drama",
-    name_ru: "Драма",
-  },
-  {
-    id: 5,
+    id: 10,
     name: "Fantasy",
     name_ru: "Фэнтези",
   },
   {
-    id: 6,
-    name: "Horror",
-    name_ru: "Ужасы",
+    id: 8,
+    name: "Drama",
+    name_ru: "Драма",
+  },
+  {
+    id: 24,
+    name: "Sci-Fi",
+    name_ru: "Научная фантастика",
   },
   {
     id: 7,
@@ -41,69 +46,109 @@ const genres = [
     name_ru: "Мистика",
   },
   {
-    id: 8,
-    name: "Romance",
-    name_ru: "Романтика",
-  },
-  {
-    id: 9,
-    name: "Sci-Fi",
-    name_ru: "Научная фантастика",
-  },
-  {
-    id: 10,
+    id: 36,
     name: "Slice of Life",
     name_ru: "Повседневность",
   },
   {
-    id: 11,
-    name: "Sports",
-    name_ru: "Спорт",
-  },
-  {
-    id: 12,
+    id: 37,
     name: "Supernatural",
     name_ru: "Сверхъестественное",
   },
   {
-    id: 13,
+    id: 30,
+    name: "Sports",
+    name_ru: "Спорт",
+  },
+  {
+    id: 14,
+    name: "Horror",
+    name_ru: "Ужасы",
+  },
+  {
+    id: 9,
     name: "Ecchi",
     name_ru: "Этти",
   },
   {
-    id: 14,
+    id: 35,
     name: "Harem",
     name_ru: "Гарем",
   },
   {
-    id: 15,
+    id: 46,
     name: "Isekai",
     name_ru: "Исекай",
   },
   {
-    id: 16,
+    id: 18,
     name: "Mecha",
     name_ru: "Меха",
   },
   {
-    id: 17,
+    id: 40,
     name: "Psychological",
     name_ru: "Психологическое",
   },
   {
-    id: 18,
+    id: 41,
     name: "Thriller",
     name_ru: "Триллер",
   },
   {
-    id: 19,
-    name: "Historical",
-    name_ru: "Исторический",
+    id: 23,
+    name: "School",
+    name_ru: "Школа",
   },
   {
-    id: 20,
+    id: 27,
+    name: "Shounen",
+    name_ru: "Сёнэн",
+  },
+  {
+    id: 28,
+    name: "Seinen",
+    name_ru: "Сэйнэн",
+  },
+  {
+    id: 25,
+    name: "Shoujo",
+    name_ru: "Сёдзё",
+  },
+  {
+    id: 42,
+    name: "Josei",
+    name_ru: "Дзёсэй",
+  },
+  {
+    id: 50,
     name: "Military",
     name_ru: "Военное",
+  },
+  {
+    id: 51,
+    name: "Historical",
+    name_ru: "Историческое",
+  },
+  {
+    id: 52,
+    name: "Music",
+    name_ru: "Музыка",
+  },
+  {
+    id: 53,
+    name: "Parody",
+    name_ru: "Пародия",
+  },
+  {
+    id: 54,
+    name: "Samurai",
+    name_ru: "Самураи",
+  },
+  {
+    id: 55,
+    name: "Vampire",
+    name_ru: "Вампиры",
   },
 ];
 
@@ -191,7 +236,7 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg w-64 h-full">
+    <div className="p-4 bg-gray-800 text-white rounded-lg h-full">
       <h2 className="text-xl mb-4">Фильтры</h2>
 
       {/* СЕЗОН */}
@@ -234,6 +279,7 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
           value={selectedFilters.genre}
           onChange={(e) => handleChange("genre", e.target.value)}
         >
+          <option value="">Все</option>
           {genres.map(({ id, name, name_ru }) => (
             <option key={id} value={`${id}-${name}`}>
               {name_ru}

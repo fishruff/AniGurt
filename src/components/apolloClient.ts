@@ -1,11 +1,26 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, gql } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
-export const client = new ApolloClient({
-  uri: "https://shikimori.one/api/graphql",
-  cache: new InMemoryCache(),
+// Настройка HTTP-ссылки
+const httpLink = new HttpLink({
+  uri: "/graphql", // Используем прокси
 });
 
+// Добавление заголовков
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      "User-Agent": "AniGurt/1.0 (arsershoff@gmail.com)", // Укажите ваше приложение и email
+    },
+  };
+});
 
+// Создание Apollo Client
+export const client = new ApolloClient({
+  link: authLink.concat(httpLink), // Объединяем заголовки и ссылку
+  cache: new InMemoryCache(),
+});
 export const GET_FILTERED_ANIME = gql`
   query GetFilteredAnime(
     $season: SeasonString
@@ -13,252 +28,411 @@ export const GET_FILTERED_ANIME = gql`
     $status: AnimeStatusString
   ) {
     animes(season: $season, genre: $genre, limit: 50, status: $status) {
-    id
-    malId
-    name
-    russian
-    licenseNameRu
-    english
-    japanese
-    synonyms
-    kind
-    rating
-    score
-    status
-    episodes
-    episodesAired
-    duration
-    airedOn { year month day date }
-    releasedOn { year month day date }
-    url
-    season
-
-    poster { id originalUrl mainUrl }
-
-    fansubbers
-    fandubbers
-    licensors
-    createdAt,
-    updatedAt,
-    nextEpisodeAt,
-    isCensored
-
-    genres { id name russian kind }
-    studios { id name imageUrl }
-
-    externalLinks {
       id
+      malId
+      name
+      russian
+      licenseNameRu
+      english
+      japanese
+      synonyms
       kind
+      rating
+      score
+      status
+      episodes
+      episodesAired
+      duration
+      airedOn {
+        year
+        month
+        day
+        date
+      }
+      releasedOn {
+        year
+        month
+        day
+        date
+      }
       url
+      season
+
+      poster {
+        id
+        originalUrl
+        mainUrl
+      }
+
+      fansubbers
+      fandubbers
+      licensors
       createdAt
       updatedAt
-    }
+      nextEpisodeAt
+      isCensored
 
-    personRoles {
-      id
-      rolesRu
-      rolesEn
-      person { id name poster { id } }
-    }
-    characterRoles {
-      id
-      rolesRu
-      rolesEn
-      character { id name poster { id } }
-    }
-
-    related {
-      id
-      anime {
+      genres {
         id
         name
+        russian
+        kind
       }
-      manga {
+      studios {
         id
         name
+        imageUrl
       }
-      relationKind
-      relationText
+
+      externalLinks {
+        id
+        kind
+        url
+        createdAt
+        updatedAt
+      }
+
+      personRoles {
+        id
+        rolesRu
+        rolesEn
+        person {
+          id
+          name
+          poster {
+            id
+          }
+        }
+      }
+      characterRoles {
+        id
+        rolesRu
+        rolesEn
+        character {
+          id
+          name
+          poster {
+            id
+          }
+        }
+      }
+
+      related {
+        id
+        anime {
+          id
+          name
+        }
+        manga {
+          id
+          name
+        }
+        relationKind
+        relationText
+      }
+
+      videos {
+        id
+        url
+        name
+        kind
+        playerUrl
+        imageUrl
+      }
+      screenshots {
+        id
+        originalUrl
+        x166Url
+        x332Url
+      }
+
+      scoresStats {
+        score
+        count
+      }
+      statusesStats {
+        status
+        count
+      }
+
+      description
+      descriptionHtml
+      descriptionSource
     }
-
-    videos { id url name kind playerUrl imageUrl }
-    screenshots { id originalUrl x166Url x332Url }
-
-    scoresStats { score count }
-    statusesStats { status count }
-
-    description
-    descriptionHtml
-    descriptionSource
-  }
   }
 `;
 
 export const GET_NEW_RANKED_ANIME = gql`
   query ($season: SeasonString!) {
     animes(season: $season, limit: 20, order: ranked) {
-    id
-    malId
-    name
-    russian
-    licenseNameRu
-    english
-    japanese
-    synonyms
-    kind
-    rating
-    score
-    status
-    episodes
-    episodesAired
-    duration
-    airedOn { year month day date }
-    releasedOn { year month day date }
-    url
-    season
-
-    poster { id originalUrl mainUrl }
-
-    fansubbers
-    fandubbers
-    licensors
-    createdAt,
-    updatedAt,
-    nextEpisodeAt,
-    isCensored
-
-    genres { id name russian kind }
-    studios { id name imageUrl }
-
-    externalLinks {
       id
+      malId
+      name
+      russian
+      licenseNameRu
+      english
+      japanese
+      synonyms
       kind
+      rating
+      score
+      status
+      episodes
+      episodesAired
+      duration
+      airedOn {
+        year
+        month
+        day
+        date
+      }
+      releasedOn {
+        year
+        month
+        day
+        date
+      }
       url
+      season
+
+      poster {
+        id
+        originalUrl
+        mainUrl
+      }
+
+      fansubbers
+      fandubbers
+      licensors
       createdAt
       updatedAt
-    }
+      nextEpisodeAt
+      isCensored
 
-    personRoles {
-      id
-      rolesRu
-      rolesEn
-      person { id name poster { id } }
-    }
-    characterRoles {
-      id
-      rolesRu
-      rolesEn
-      character { id name poster { id } }
-    }
-
-    related {
-      id
-      anime {
+      genres {
         id
         name
+        russian
+        kind
       }
-      manga {
+      studios {
         id
         name
+        imageUrl
       }
-      relationKind
-      relationText
+
+      externalLinks {
+        id
+        kind
+        url
+        createdAt
+        updatedAt
+      }
+
+      personRoles {
+        id
+        rolesRu
+        rolesEn
+        person {
+          id
+          name
+          poster {
+            id
+          }
+        }
+      }
+      characterRoles {
+        id
+        rolesRu
+        rolesEn
+        character {
+          id
+          name
+          poster {
+            id
+          }
+        }
+      }
+
+      related {
+        id
+        anime {
+          id
+          name
+        }
+        manga {
+          id
+          name
+        }
+        relationKind
+        relationText
+      }
+
+      videos {
+        id
+        url
+        name
+        kind
+        playerUrl
+        imageUrl
+      }
+      screenshots {
+        id
+        originalUrl
+        x166Url
+        x332Url
+      }
+
+      scoresStats {
+        score
+        count
+      }
+      statusesStats {
+        status
+        count
+      }
+
+      description
+      descriptionHtml
+      descriptionSource
     }
-
-    videos { id url name kind playerUrl imageUrl }
-    screenshots { id originalUrl x166Url x332Url }
-
-    scoresStats { score count }
-    statusesStats { status count }
-
-    description
-    descriptionHtml
-    descriptionSource
-  }
   }
 `;
 
 export const GET_EX_SEASON_ANIME = gql`
-  query{
+  query {
     animes(season: "fall_2024", limit: 20, order: ranked) {
-    id
-    malId
-    name
-    russian
-    licenseNameRu
-    english
-    japanese
-    synonyms
-    kind
-    rating
-    score
-    status
-    episodes
-    episodesAired
-    duration
-    airedOn { year month day date }
-    releasedOn { year month day date }
-    url
-    season
-
-    poster { id originalUrl mainUrl }
-
-    fansubbers
-    fandubbers
-    licensors
-    createdAt,
-    updatedAt,
-    nextEpisodeAt,
-    isCensored
-
-    genres { id name russian kind }
-    studios { id name imageUrl }
-
-    externalLinks {
       id
+      malId
+      name
+      russian
+      licenseNameRu
+      english
+      japanese
+      synonyms
       kind
+      rating
+      score
+      status
+      episodes
+      episodesAired
+      duration
+      airedOn {
+        year
+        month
+        day
+        date
+      }
+      releasedOn {
+        year
+        month
+        day
+        date
+      }
       url
+      season
+
+      poster {
+        id
+        originalUrl
+        mainUrl
+      }
+
+      fansubbers
+      fandubbers
+      licensors
       createdAt
       updatedAt
-    }
+      nextEpisodeAt
+      isCensored
 
-    personRoles {
-      id
-      rolesRu
-      rolesEn
-      person { id name poster { id } }
-    }
-    characterRoles {
-      id
-      rolesRu
-      rolesEn
-      character { id name poster { id } }
-    }
-
-    related {
-      id
-      anime {
+      genres {
         id
         name
+        russian
+        kind
       }
-      manga {
+      studios {
         id
         name
+        imageUrl
       }
-      relationKind
-      relationText
+
+      externalLinks {
+        id
+        kind
+        url
+        createdAt
+        updatedAt
+      }
+
+      personRoles {
+        id
+        rolesRu
+        rolesEn
+        person {
+          id
+          name
+          poster {
+            id
+          }
+        }
+      }
+      characterRoles {
+        id
+        rolesRu
+        rolesEn
+        character {
+          id
+          name
+          poster {
+            id
+          }
+        }
+      }
+
+      related {
+        id
+        anime {
+          id
+          name
+        }
+        manga {
+          id
+          name
+        }
+        relationKind
+        relationText
+      }
+
+      videos {
+        id
+        url
+        name
+        kind
+        playerUrl
+        imageUrl
+      }
+      screenshots {
+        id
+        originalUrl
+        x166Url
+        x332Url
+      }
+
+      scoresStats {
+        score
+        count
+      }
+      statusesStats {
+        status
+        count
+      }
+
+      description
+      descriptionHtml
+      descriptionSource
     }
-
-    videos { id url name kind playerUrl imageUrl }
-    screenshots { id originalUrl x166Url x332Url }
-
-    scoresStats { score count }
-    statusesStats { status count }
-
-    description
-    descriptionHtml
-    descriptionSource
-  }
   }
 `;
 
