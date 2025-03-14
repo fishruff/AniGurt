@@ -5,8 +5,8 @@ import { GET_TOP_ANIME, GET_FILTERED_ANIME } from "../apolloClient";
 import { useEffect, useState } from "react";
 import AnimeCard from "../AnimeCard";
 import { Anime } from "../../types/Anime";
-import AnimeCardSkeleton from "../AnimeSkeletonCard";
 import AnimeFilter from "../AnimeFilter";
+import Spiner from "../Spiner";
 
 export default function TopAnimeList() {
   const [filters, setFilters] = useState<Record<string, string>>({
@@ -14,6 +14,9 @@ export default function TopAnimeList() {
     genre: "",
     status: "",
   });
+
+  const [animeList, setAnimeList] = useState<Anime[]>([]); // Состояние для хранения текущего списка аниме
+  const [isLoading, setIsLoading] = useState(false); // Состояние для отслеживания загрузки
 
   useEffect(() => {
     document.title = "Аниме | AniGurt";
@@ -35,26 +38,39 @@ export default function TopAnimeList() {
     },
   );
 
+  // Обновление списка аниме после завершения загрузки
+  useEffect(() => {
+    if (topLoading || filteredLoading) {
+      setIsLoading(true); // Показываем спиннер, если идет загрузка
+    } else {
+      const newAnimeList =
+        filters.season || filters.genre || filters.status
+          ? filteredData?.animes || []
+          : topData?.animes || [];
+      setAnimeList(newAnimeList); // Обновляем данные
+      setIsLoading(false); // Скрываем спиннер
+    }
+  }, [topLoading, filteredLoading, topData, filteredData, filters]);
+
   if (error) return <p>Ошибка: {error.message}</p>;
 
-  const animeList =
-    filters.season || filters.genre || filters.status
-      ? filteredData?.animes || []
-      : topData?.animes || [];
-
   return (
-    <div className="flex flex-row-reverse gap-20 p-10 mt-20">
+    <div className="flex flex-col lg:flex-row-reverse gap-20 p-10 mt-20">
       {/* Фильтрация */}
       <AnimeFilter onFilterChange={setFilters} />
-      <ul className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {topLoading || filteredLoading
-          ? Array.from({ length: 10 }).map((_, index) => (
-              <AnimeCardSkeleton key={index} />
-            ))
-          : animeList.map((anime: Anime) => (
-              <AnimeCard key={anime.id} anime={anime} />
-            ))}
-      </ul>
+
+      {/* Спиннер или список аниме */}
+      {isLoading ? (
+        <div className="flex justify-center items-start w-full ">
+          <Spiner />
+        </div>
+      ) : (
+        <ul className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          {animeList.map((anime: Anime) => (
+            <AnimeCard key={anime.id} anime={anime} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

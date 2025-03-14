@@ -5,49 +5,34 @@ import Spiner from "../Spiner";
 import Player from "../Player";
 import { useEffect } from "react";
 import RelatedAnimeList from "../RelatedAnimeList";
-
-interface Anime {
-  id: number;
-  descriptionHtml?: string;
-  description?: string;
-  name: string;
-  russian: string;
-  image: { original: string };
-  score: string;
-  rating: string;
-  kind: string;
-  url: string;
-  poster: { originalUrl: string };
-  status: string;
-  episodes: number;
-  airedOn?: { year: number };
-  genres: { id: number; name: string; russian: string; kind: string }[];
-  screenshots: { id: number; originalUrl: string }[];
-}
+import { Anime } from "../../types/Anime";
 
 const AnimePage = () => {
+  const { id } = useParams<{ id: string }>();
+  const { loading, error, data } = useQuery(GET_ANIME_BY_ID, {
+    variables: { id },
+  });
 
-    const { id } = useParams<{ id: string }>();
-    const { loading, error, data } = useQuery(GET_ANIME_BY_ID, { variables: { id } });
-  
-    const anime: Anime | undefined = data?.animes?.[0];
-  
-    useEffect(() => {
-      if (anime) {
-        document.title = anime.russian || "Аниме | AniGurt";
-      } else {
-        document.title = "Аниме | AniGurt";
-      }
-    }, [anime]);
-  
-    if (loading) return <Spiner />;
-    if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
-    if (!anime) return <p>Аниме не найдено</p>;
+  const anime: Anime | undefined = data?.animes?.[0];
 
-  
- 
-  const newDesc = anime.description!==null ? anime.descriptionHtml : "Описания пока нет :(";
-  const urlPlayer ="//kodik.cc/find-player?shikimoriID="+anime.id +"&types=anime,anime-serial&episode=1";
+  useEffect(() => {
+    if (anime) {
+      document.title = anime.russian || "Аниме | AniGurt";
+    } else {
+      document.title = "Аниме | AniGurt";
+    }
+  }, [anime]);
+
+  if (loading) return <Spiner />;
+  if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
+  if (!anime) return <p>Аниме не найдено</p>;
+
+  const newDesc =
+    anime.description !== null ? anime.descriptionHtml : "Описания пока нет :(";
+  const urlPlayer =
+    "//kodik.cc/find-player?shikimoriID=" +
+    anime.id +
+    "&types=anime,anime-serial&episode=1";
 
   return (
     <div className="p-10   text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
@@ -113,7 +98,7 @@ const AnimePage = () => {
           </div>
         </div>
         <div className="">
-          <RelatedAnimeList animeId={anime.id}/>
+          <RelatedAnimeList animeId={anime.id} />
         </div>
         <div className="">
           <Player urlPlayer={urlPlayer} />

@@ -236,7 +236,7 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg h-full">
+    <div className="p-4 bg-gray-800 text-white rounded-lg w-full h-full">
       <h2 className="text-xl mb-4">Фильтры</h2>
 
       {/* СЕЗОН */}

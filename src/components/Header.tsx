@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord } from "../services/auth";
+// import { GET_RANDOM_ANIME } from "./apolloClient";
+// import { useQuery } from "@apollo/client";
 
 function Header() {
   const [user, setUser] = useState<UserRecord | null>(null);
+  // const [data, error] = useQuery(GET_RANDOM_ANIME);
 
   useEffect(() => {
     getCurrentUser().then((data) => {
@@ -25,19 +28,19 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // if (error) return <p>Ошибка: {error.message}</p>;
+
   return (
     <div
       className={`
-        fixed bottom-0 lg:top-0 left-0 inset-x-0 mx-auto 
+        fixed bottom-0 lg:top-0 left-0 inset-x-0 mx-auto
         lg:hover:bg-[#171717da]
          w-4/5 object-center rounded-4xl lg:rounded-none
-        lg:w-full 
-        h-16 bg-[#171717] 
+        lg:w-full
+        h-16 bg-[#171717]
         lg:h-20 lg:bg-transparent
-        z-50 text-amber-50 transition-colors duration-300 
-        lg:${
-          isScroll ? "bg-[#171717]" : "bg-transparent"
-        }`}
+        z-50 text-amber-50 transition-colors duration-300
+        lg:${isScroll ? "bg-[#171717]" : "bg-transparent"}`}
     >
       <div className="container mx-auto flex flex-row justify-between items-center p-5 ">
         {/* Логотип */}
@@ -57,6 +60,7 @@ function Header() {
           <Link to="/mangas" className="">
             Манга
           </Link>
+          <Link to="/random">Рандом</Link>
         </nav>
 
         {/* Поиск и профиль */}

@@ -18,23 +18,23 @@ function MainLayouts() {
   return (
     <div>
       <Header />
-    <div className="">
-
-      <ApolloProvider client={client}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/animes" element={<TopAnimes />} />
-          <Route path="/anime/:id" element={<AnimePage />} />
-          <Route path="/search" element={<SearchAnime />} />
-          <Route path="/mangas" element={<Manga />} />
-          <Route path="/manga/:id" element={<MangaPage />} />
-          <Route path="/me" element={<ProfilePage/>}/>
-          <Route  path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegestrationPage/>}/>
-          <Route path="*" element={<NotFound/>} />
-        </Routes>
-      </ApolloProvider>
-    </div>
+      <div className="">
+        <ApolloProvider client={client}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/animes" element={<TopAnimes />} />
+            <Route path="/anime/:id" element={<AnimePage />} />
+            <Route path="/search" element={<SearchAnime />} />
+            <Route path="/mangas" element={<Manga />} />
+            <Route path="/manga/:id" element={<MangaPage />} />
+            <Route path="/me" element={<ProfilePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegestrationPage />} />
+            <Route path="/random" element={<AnimePage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ApolloProvider>
+      </div>
       <Analytics />
     </div>
   );

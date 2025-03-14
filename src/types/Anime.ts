@@ -45,5 +45,5 @@ export interface Anime {
   descriptionHtml?: string;
   descriptionSource?: string;
 
-  genres?: { id: number; name: string; russian: string; kind: string }[];
+  genres: { id: number; name: string; russian: string; kind: string }[];
 }
