@@ -46,7 +46,6 @@ const AnimePage = () => {
 
   let animeRating;
   if (anime.rating == "rx") animeRating = "Хентай";
-
   if (anime.rating == "g") animeRating = "0+";
   if (anime.rating == "pg") animeRating = "13+";
   if (anime.rating == "pg_13") animeRating = "13+";

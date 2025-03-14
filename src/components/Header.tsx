@@ -54,9 +54,9 @@ function Header() {
           <Link to="/animes" className="">
             Аниме
           </Link>
-          <Link to="/mangas" className="">
+          {/* <Link to="/mangas" className="">
             Манга
-          </Link>
+          </Link> */}
           <Link to="/random">Рандом</Link>
         </nav>
 
