@@ -6,7 +6,6 @@ import { getCurrentUser, UserRecord } from "../services/auth";
 
 function Header() {
   const [user, setUser] = useState<UserRecord | null>(null);
-  // const [data, error] = useQuery(GET_RANDOM_ANIME);
 
   useEffect(() => {
     getCurrentUser().then((data) => {
@@ -27,8 +26,6 @@ function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // if (error) return <p>Ошибка: {error.message}</p>;
 
   return (
     <div

@@ -13,6 +13,7 @@ import ProfilePage from "../components/Pages/ProfilePage";
 import LoginPage from "../components/Pages/LoginPage";
 import RegestrationPage from "../components/Pages/RegisterPage";
 import NotFound from "../components/Pages/NotFound";
+import RandomAnime from "../components/RandomAnime";
 
 function MainLayouts() {
   return (
@@ -30,7 +31,7 @@ function MainLayouts() {
             <Route path="/me" element={<ProfilePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegestrationPage />} />
-            <Route path="/random" element={<AnimePage />} />
+            <Route path="/random" element={<RandomAnime />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ApolloProvider>

@@ -164,7 +164,7 @@ export const GET_FILTERED_ANIME = gql`
 
 export const GET_RANDOM_ANIME = gql`
   query {
-    animes(order: random) {
+    animes(order: random, limit: 1) {
       id
       malId
       name

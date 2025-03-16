@@ -152,7 +152,7 @@ const genres = [
   },
 ];
 
-// const seasons = ["winter_2020", "spring", "summer", "fall"];
+
 const seasons = [
   {
     id: 1,
@@ -176,6 +176,11 @@ const seasons = [
   },
   {
     id: 5,
+    name: "Лето 2024",
+    value: "summer_2024",
+  },
+  {
+    id: 1,
     name: "2025 год",
     value: "2025",
   },
