@@ -1,5 +1,9 @@
 import { useQuery } from "@apollo/client";
-import { GET_NEW_RANKED_ANIME, GET_EX_SEASON_ANIME } from "../apolloClient";
+import {
+  GET_NEW_RANKED_ANIME,
+  GET_EX_SEASON_ANIME,
+  GET_ADMIN_ANIME,
+} from "../apolloClient";
 import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,7 +12,6 @@ import "swiper/swiper-bundle.css";
 import { useEffect } from "react";
 import { Anime } from "../../types/Anime";
 import AnimeList from "../AnimeList";
-
 
 function Home() {
   function getSeason(): string {
@@ -40,7 +43,9 @@ function Home() {
     variables: { season },
   });
 
-  const ex_season =  useQuery(GET_EX_SEASON_ANIME);
+  const ex_season = useQuery(GET_EX_SEASON_ANIME);
+
+  const adminAnime = useQuery(GET_ADMIN_ANIME);
 
   useEffect(() => {
     document.title = "AniGurt";
@@ -49,9 +54,9 @@ function Home() {
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
 
-  if (!data || !data.animes) return <p>Нет данных</p>;
+  // if (!data || !data.animes) return <p>Нет данных</p>;
 
-  
+  console.log(adminAnime.data);
 
   return (
     <div className="h-screen w-full">
@@ -100,11 +105,18 @@ function Home() {
 
       <div className="mt-5 p-5">
         <h2 className="text-2xl text-amber-50 mb-5">Аниме прошлого сезона</h2>
+        <AnimeList
+          animeList={ex_season.data?.animes || []}
+          loading={ex_season.loading}
+        />
+      </div>
 
-        <AnimeList animeList={ex_season.data?.animes || []} loading={ex_season.loading} />
-
-
-
+      <div className="mt-5 p-5">
+        <h2 className="text-2xl text-amber-50 mb-5">Рекомендация админа</h2>
+        <AnimeList
+          animeList={adminAnime.data?.animes || []}
+          loading={adminAnime.loading}
+        />
       </div>
     </div>
   );
