@@ -33,7 +33,25 @@ const AnimePage = () => {
     "//kodik.cc/find-player?shikimoriID=" +
     anime.id +
     "&types=anime,anime-serial&episode=1";
+  let animeKind;
+  if (anime.kind == "tv") animeKind = "Сериал";
+  if (anime.kind == "tv_special") animeKind = "Тв-спешл";
+  if (anime.kind == "ova") animeKind = "OVA";
+  if (anime.kind == "ona") animeKind = "ONA";
+  if (anime.kind == "music") animeKind = "Музыка";
+  if (anime.kind == "movie") animeKind = "Фильм";
+  if (anime.kind == "special") animeKind = "Спешл";
+  if (anime.kind == "cm") animeKind = "Реклама";
+  if (anime.kind == "pv") animeKind = "Промо ролик";
 
+  let animeRating;
+  if (anime.rating == "rx") animeRating = "Хентай";
+
+  if (anime.rating == "g") animeRating = "0+";
+  if (anime.rating == "pg") animeRating = "13+";
+  if (anime.rating == "pg_13") animeRating = "13+";
+  if (anime.rating == "r") animeRating = "17+";
+  if (anime.rating == "r_plus") animeRating = "17+";
   return (
     <div className="p-10   text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
       <div
@@ -65,9 +83,9 @@ const AnimePage = () => {
               </p>
 
               <div className="flex gap-10 mt-5 *:text-[#7e8597] *:p-1.5 *:border-1 *:border-amber-[#7e8597] *:rounded-2xl">
-                <p className="">{anime.rating}</p>
+                <p className="">{animeRating}</p>
                 <p className="">{anime.airedOn?.year}</p>
-                <p className="">{anime.kind}</p>
+                <p className="">{animeKind}</p>
               </div>
 
               <p className=" text-2xl mt-5">Информация</p>
