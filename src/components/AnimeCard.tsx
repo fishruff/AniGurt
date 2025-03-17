@@ -29,9 +29,13 @@ function AnimeCard({ anime }: { anime: Anime }) {
             />
             <div className="*:text-white *:rounded-full *:text-sm *:font-semibold *:text-center *:absolute *:px-3 *:py-1">
               {/* Оценка */}
-              <p className="bg-green-800 top-2 left-2 ">{anime.score}</p>
+              <p className="bg-gradient-to-r from-emerald-700 to-teal-800 top-2 left-2 ">
+                {anime.score}
+              </p>
               {/* Статус */}
-              <p className="bg-gray-700 top-2 right-2 ">{status_ru}</p>
+              <p className="bg-gradient-to-r from-cyan-700 to-blue-700 top-2 right-2 ">
+                {status_ru}
+              </p>
               {/* Эпизоды */}
               {/* <p className="bg-blue-800  bottom-2 right-2 ">
                   {anime.episodesAired} / {anime.episodes}

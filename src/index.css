@@ -1,19 +1,26 @@
 @import "tailwindcss";
-:root{
+
+:root,
+html,
+body {
     background: #171717;
 }
-.b-link{
-    display: inline-block;
-    font-style: italic;
-    color: #56a6f7; 
-    transition: transform 0.3s ease;
-}
-.b-link:hover{
-    transform: scale(1.05);
-}
+
 body {
+    background: linear-gradient(45deg, rgb(47, 47, 47) 4%, rgb(23, 23, 23));
     font-family: "Comfortaa", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-  }
+}
+
+.b-link {
+    display: inline-block;
+    font-style: italic;
+    color: #56a6f7;
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: transform 0.3s ease;
+}
+.b-link:hover {
+    transform: scale(1.05);
+}

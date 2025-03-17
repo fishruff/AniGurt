@@ -54,7 +54,7 @@ function Home() {
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
 
-  // if (!data || !data.animes) return <p>Нет данных</p>;
+  if (!data || !data.animes) return <p>Нет данных</p>;
 
   console.log(adminAnime.data);
 

@@ -152,7 +152,6 @@ const genres = [
   },
 ];
 
-
 const seasons = [
   {
     id: 1,
@@ -180,7 +179,7 @@ const seasons = [
     value: "summer_2024",
   },
   {
-    id: 1,
+    id: 6,
     name: "2025 год",
     value: "2025",
   },
@@ -241,7 +240,7 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg w-full h-full">
+    <div className="p-4 bg-gradient-to-bl from-slate-800 to-indigo-950 text-white rounded-lg w-full h-full">
       <h2 className="text-xl mb-4">Фильтры</h2>
 
       {/* СЕЗОН */}
