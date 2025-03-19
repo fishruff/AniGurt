@@ -1,8 +1,9 @@
 import { ApolloClient, InMemoryCache, HttpLink, gql } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
+// Настройка HTTP-ссылки
 const httpLink = new HttpLink({
-  uri: "/api/graphql", // Теперь запросы идут через proxy
+  uri: "https://shikimori.one/api/graphql", // Укажите ваш GraphQL-эндпоинт
 });
 
 // Добавление заголовков
@@ -10,15 +11,14 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "User-Agent": "AniGurt/1.0 (arsershoff@gmail.com)",
-      "content-type": "application/json",
+      "User-Agent": "AniGurt/1.0 (arsershoff@gmail.com)", // Укажите ваше приложение и email
     },
   };
 });
 
 // Создание Apollo Client
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(httpLink), // Объединяем заголовки и ссылку
   cache: new InMemoryCache(),
 });
 export const GET_FILTERED_ANIME = gql`

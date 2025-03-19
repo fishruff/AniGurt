@@ -7,10 +7,11 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      "/graphql": {
+      "/api": {
         target: "https://shikimori.one",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/graphql/, "/api/graphql"),
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
         headers: {
           "User-Agent": "Anigurt/1.0 (arsershoff@gmail.com)",
         },
