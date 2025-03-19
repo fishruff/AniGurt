@@ -12,6 +12,17 @@ function AnimeCard({ anime }: { anime: Anime }) {
     status_ru = "Выходит";
   }
 
+  let animeKind;
+  if (anime.kind == "tv") animeKind = "Сериал";
+  if (anime.kind == "tv_special") animeKind = "Тв-спешл";
+  if (anime.kind == "ova") animeKind = "OVA";
+  if (anime.kind == "ona") animeKind = "ONA";
+  if (anime.kind == "music") animeKind = "Клип";
+  if (anime.kind == "movie") animeKind = "Фильм";
+  if (anime.kind == "special") animeKind = "Спешл";
+  if (anime.kind == "cm") animeKind = "Реклама";
+  if (anime.kind == "pv") animeKind = "Промо ролик";
+
   return (
     <div className="">
       <li
@@ -50,7 +61,7 @@ function AnimeCard({ anime }: { anime: Anime }) {
 
           {/* Дополнительная информация */}
           <div className="flex justify-between items-center px-4 pb-4 mt-2 *:text-sm *:text-gray-400">
-            <p className="">{anime?.kind}</p>
+            <p className="">{animeKind}</p>
             <p className="">{anime.airedOn?.year}</p>
           </div>
         </Link>

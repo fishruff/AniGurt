@@ -3,7 +3,9 @@
 :root,
 html,
 body {
-    /* background: #171717; */
+    background: #171717;
+    margin: 0;
+    padding: 0;
 }
 
 body {

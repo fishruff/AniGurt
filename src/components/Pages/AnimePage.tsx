@@ -38,7 +38,7 @@ const AnimePage = () => {
   if (anime.kind == "tv_special") animeKind = "Тв-спешл";
   if (anime.kind == "ova") animeKind = "OVA";
   if (anime.kind == "ona") animeKind = "ONA";
-  if (anime.kind == "music") animeKind = "Музыка";
+  if (anime.kind == "music") animeKind = "Клип";
   if (anime.kind == "movie") animeKind = "Фильм";
   if (anime.kind == "special") animeKind = "Спешл";
   if (anime.kind == "cm") animeKind = "Реклама";
