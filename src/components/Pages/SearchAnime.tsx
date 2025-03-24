@@ -4,7 +4,7 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_ANIME_SEARCH } from "../apolloClient";
 import Spiner from "../Spiner";
 import { useState, useEffect, useCallback } from "react";
-import { Anime } from "../../types/Anime";
+// import { Anime } from "../../types/Anime";
 import AnimeList from "../AnimeList";
 
 function SearchAnime() {
