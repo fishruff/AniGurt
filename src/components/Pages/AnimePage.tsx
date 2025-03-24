@@ -51,6 +51,20 @@ const AnimePage = () => {
   if (anime.rating == "pg_13") animeRating = "13+";
   if (anime.rating == "r") animeRating = "17+";
   if (anime.rating == "r_plus") animeRating = "17+";
+
+  let status_ru = "";
+  if (anime.status == "released") {
+    status_ru = "Вышло";
+  }
+  if (anime.status == "anons") {
+    status_ru = "Анонс";
+  }
+  if (anime.status == "ongoing") {
+    status_ru = "Выходит";
+  }
+
+  console.log(anime.related);
+
   return (
     <div className="p-10   text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
       <div
@@ -94,7 +108,7 @@ const AnimePage = () => {
                 <p className="">Эпизодов: </p>
                 <p>{anime.episodes}</p>
                 <p className="">Статус: </p>
-                <p>{anime.status}</p>
+                <p>{status_ru}</p>
               </div>
               <p className=" text-2xl mt-2 mb-2">Описание</p>
               <p

@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord } from "../services/auth";
-// import { GET_RANDOM_ANIME } from "./apolloClient";
-// import { useQuery } from "@apollo/client";
 
 function Header() {
   const [user, setUser] = useState<UserRecord | null>(null);
+  const [isScroll, setIsScroll] = useState(false);
 
   useEffect(() => {
     getCurrentUser().then((data) => {
@@ -13,15 +12,9 @@ function Header() {
     });
   }, []);
 
-  const [isScroll, setIsScroll] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScroll(true);
-      } else {
-        setIsScroll(false);
-      }
+      setIsScroll(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -31,37 +24,43 @@ function Header() {
     <div
       className={`
         fixed bottom-0 lg:top-0 left-0 inset-x-0 mx-auto
-        lg:hover:bg-[#171717da]
-         w-4/5 object-center rounded-4xl lg:rounded-none
-        lg:w-full
-        h-16 bg-[#171717]
-        lg:h-20 lg:bg-transparent
-        z-50 text-amber-50 transition-colors duration-300
-        lg:${isScroll ? "bg-[#171717]" : "bg-transparent"}`}
+        w-4/5 lg:w-full
+        h-16 lg:h-20
+        z-50 text-amber-50
+        rounded-4xl lg:rounded-none
+        transition-all duration-300
+      `}
     >
-      <div className="container mx-auto flex flex-row justify-between items-center p-5 ">
+      {/* Backdrop с эффектом размытия */}
+      <div
+        className={`
+          absolute inset-0
+           backdrop-blur-xl
+          rounded-4xl lg:rounded-none
+          transition-all duration-300
+          ${isScroll ? "opacity-100" : "opacity-0 lg:opacity-80"}
+        `}
+      />
+
+      {/* Контент хедера */}
+      <div className="container relative mx-auto flex flex-row justify-between items-center p-5">
         {/* Логотип */}
         <Link
           to="/"
-          className="items-center font-bold text-md lg:text-2xl hover:text-[#e82c4c] transition-colors duration-300 flex"
+          className="items-center font-bold text-md lg:text-2xl hover:text-[#e82c4c] transition-colors duration-300 flex z-10"
         >
           <h1 className="text-[#e82c4c]">Ani</h1>
           <h1>Gurt</h1>
         </Link>
 
         {/* Навигация */}
-        <nav className="flex items-center gap-6 *:hover:text-[#e82c4c] *:transition-colors *:duration-300">
-          <Link to="/animes" className="">
-            Аниме
-          </Link>
-          {/* <Link to="/mangas" className="">
-            Манга
-          </Link> */}
+        <nav className="flex items-center gap-6 *:hover:text-[#e82c4c] *:transition-colors *:duration-300 z-10">
+          <Link to="/animes">Аниме</Link>
           <Link to="/random">Рандом</Link>
         </nav>
 
         {/* Поиск и профиль */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 z-10">
           <Link
             to="/search"
             className="hover:text-[#e82c4c] transition-colors duration-300"
@@ -99,43 +98,38 @@ function Header() {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-6 h-6 hover:text-[#d6253f] transition-colors duration-300"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                   />
                 </svg>
               )}
-
               <span className="font-semibold hidden lg:block">{user.name}</span>
             </Link>
           ) : (
-            <Link to="/login" className=" ">
-              {/* Войти */}
-              <div className="flex items-center gap-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="w-6 h-6 hover:text-[#d6253f] transition-colors duration-300"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                </svg>
-
-                <p className="bg-[#e82c4c]  rounded-md  text-white py-2 px-4 hidden text-center lg:flex">
-                  Войти
-                </p>
-              </div>
+            <Link to="/login" className="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 hover:text-[#d6253f] transition-colors duration-300 lg:hidden"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+              <p className="bg-[#e82c4c] rounded-md text-white py-2 px-4 hidden text-center lg:flex">
+                Войти
+              </p>
             </Link>
           )}
         </div>

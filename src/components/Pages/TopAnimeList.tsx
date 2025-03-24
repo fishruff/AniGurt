@@ -2,7 +2,7 @@
 
 import { useQuery } from "@apollo/client";
 import { GET_TOP_ANIME, GET_FILTERED_ANIME } from "../apolloClient";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import AnimeCard from "../AnimeCard";
 import { Anime } from "../../types/Anime";
 import AnimeFilter from "../AnimeFilter";
@@ -15,61 +15,78 @@ export default function TopAnimeList() {
     status: "",
   });
 
-  const [animeList, setAnimeList] = useState<Anime[]>([]); // Состояние для хранения текущего списка аниме
-  const [isLoading, setIsLoading] = useState(false); // Состояние для отслеживания загрузки
+  const [animeList, setAnimeList] = useState<Anime[]>([]);
+  const [page, setPage] = useState(1);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     document.title = "Аниме | AniGurt";
   }, []);
 
-  // Запрос всех топовых аниме (без фильтров)
-  const { loading: topLoading, error, data: topData } = useQuery(GET_TOP_ANIME);
-
-  // Запрос отфильтрованных аниме
-  const { loading: filteredLoading, data: filteredData } = useQuery(
-    GET_FILTERED_ANIME,
+  const { loading, error, data } = useQuery(
+    filters.season || filters.genre || filters.status
+      ? GET_FILTERED_ANIME
+      : GET_TOP_ANIME,
     {
       variables: {
+        page,
         season: filters.season || undefined,
         genre: filters.genre || undefined,
         status: filters.status || undefined,
       },
-      skip: !filters.season && !filters.genre && !filters.status, // Запрос не выполняется, если фильтры пустые
     },
   );
 
-  // Обновление списка аниме после завершения загрузки
   useEffect(() => {
-    if (topLoading || filteredLoading) {
-      setIsLoading(true); // Показываем спиннер, если идет загрузка
-    } else {
-      const newAnimeList =
-        filters.season || filters.genre || filters.status
-          ? filteredData?.animes || []
-          : topData?.animes || [];
-      setAnimeList(newAnimeList); // Обновляем данные
-      setIsLoading(false); // Скрываем спиннер
+    if (data?.animes) {
+      setAnimeList((prev) => [...prev, ...data.animes]); // Добавляем новые данные
     }
-  }, [topLoading, filteredLoading, topData, filteredData, filters]);
+  }, [data]);
+
+  useEffect(() => {
+    setAnimeList([]); // Очистка списка при изменении фильтров
+    setPage(1); // Сброс страницы
+  }, [filters]);
+
+  const lastAnimeRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1); // Увеличиваем номер страницы
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [loading],
+  );
 
   if (error) return <p>Ошибка: {error.message}</p>;
 
+  console.log(page);
+
   return (
     <div className="flex flex-col lg:flex-row-reverse gap-20 p-10 mt-20">
-      {/* Фильтрация */}
       <AnimeFilter onFilterChange={setFilters} />
 
-      {/* Спиннер или список аниме */}
-      {isLoading ? (
-        <div className="flex justify-center items-start w-full ">
+      <ul className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {animeList.map((anime, index) => (
+          <div
+            key={anime.id}
+            ref={index === animeList.length - 1 ? lastAnimeRef : null}
+          >
+            <AnimeCard anime={anime} />
+          </div>
+        ))}
+      </ul>
+
+      {loading && page === 1 && (
+        <div className="flex justify-center items-start w-full">
           <Spiner />
         </div>
-      ) : (
-        <ul className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {animeList.map((anime: Anime) => (
-            <AnimeCard key={anime.id} anime={anime} />
-          ))}
-        </ul>
       )}
     </div>
   );

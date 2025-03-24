@@ -11,8 +11,10 @@ interface AnimeListProps {
   loading?: boolean;
 }
 
-const AnimeList: React.FC<AnimeListProps> = ({ animeList = [], loading = false }) => {
-
+const AnimeList: React.FC<AnimeListProps> = ({
+  animeList = [],
+  loading = false,
+}) => {
   if (!Array.isArray(animeList) || animeList.length === 0) {
     return <p className="text-center text-gray-400">Нет данных</p>;
   }

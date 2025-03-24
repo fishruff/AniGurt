@@ -4,7 +4,6 @@ interface RelatedAnime {
   relation_russian: string;
   anime: { id: number; name: string; russian: string };
   manga: { id: number; name: string; russian: string };
-  
 }
 
 const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
@@ -24,12 +23,12 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
         return res.json();
       })
       .then((data) => {
-        console.log("Ответ от API:", data);
+        // console.log("Ответ от API:", data);
 
         if (Array.isArray(data)) {
-            setRelatedItems(data);
+          setRelatedItems(data);
         } else {
-            setRelatedItems([]); // Если данные не в ожидаемом формате
+          setRelatedItems([]); // Если данные не в ожидаемом формате
         }
       })
       .catch((err) => {
@@ -56,30 +55,28 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
   return (
     <div className="mt-5">
       <h3 className="text-xl font-bold">Связанные аниме и манга:</h3>
-      <ul className="list-disc ml-5">
-        {relatedItems.map((rel) => {
-          const item = rel.anime || rel.manga;
-          const type = rel.anime ? "anime" : "manga";
 
-          if (!item) {
-            return null; // Пропускаем, если нет ни аниме, ни манги
-          }
+      {relatedItems.map((rel) => {
+        const item = rel.anime || rel.manga;
+        const type = rel.anime ? "anime" : "manga";
 
-          return (
-            <li key={item.id}>
-              <a
-                href={`/${type}/${item.id}`}
-                className="text-[#e82c4c] hover:underline"
-              >
-                {item.russian || item.name} ({rel.relation_russian})
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+        if (!item) {
+          return null; // Пропускаем, если нет ни аниме, ни манги
+        }
+
+        return (
+          <li key={item.id}>
+            <a
+              href={`/${type}/${item.id}`}
+              className="text-[#e82c4c] hover:underline"
+            >
+              {item.russian || item.name} ({rel.relation_russian})
+            </a>
+          </li>
+        );
+      })}
     </div>
   );
 };
-
 
 export default RelatedAnimeList;

@@ -713,8 +713,8 @@ export const GET_EX_SEASON_ANIME = gql`
 `;
 
 export const GET_TOP_ANIME = gql`
-  query {
-    animes(limit: 50, kind: "!special") {
+  query ($page: PositiveInt) {
+    animes(limit: 50, kind: "!special", page: $page) {
       id
       name
       russian
