@@ -5,7 +5,9 @@ import { GET_ANIME_SEARCH } from "../apolloClient";
 import Spiner from "../Spiner";
 import { useState, useEffect, useCallback } from "react";
 // import { Anime } from "../../types/Anime";
-import AnimeList from "../AnimeList";
+// import AnimeList from "../AnimeList";
+import { Anime } from "../../types/Anime";
+import AnimeCard from "../AnimeCard";
 
 function SearchAnime() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,7 +58,7 @@ function SearchAnime() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Поисковая строка */}
-      <div className="sticky top-20 z-10 bg-[#171717] py-4 px-4 shadow-md">
+      <div className=" mt-20 z-10 bg-[#171717] py-4 px-4 shadow-md">
         <div className="max-w-3xl mx-auto flex items-center relative">
           <input
             value={searchTerm}
@@ -97,10 +99,12 @@ function SearchAnime() {
             Ошибка: {error.message}
           </div>
         ) : data?.animes?.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            <AnimeList animeList={data.animes} />
-          </div>
-        ) : searchTerm && !loading ? (
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-10">
+            {data.animes.map((anime: Anime) => (
+              <AnimeCard anime={anime} />
+            ))}
+          </ul>
+        ) : searchTerm && !loading && data == null ? (
           <div className="text-center text-gray-400 p-8">
             Ничего не найдено по запросу "{searchTerm}"
           </div>

@@ -31,7 +31,6 @@ function Header() {
         transition-all duration-300
       `}
     >
-      {/* Backdrop с эффектом размытия */}
       <div
         className={`
           absolute inset-0
@@ -43,7 +42,7 @@ function Header() {
       />
 
       {/* Контент хедера */}
-      <div className="container relative mx-auto flex flex-row justify-between items-center p-5">
+      <div className="container relative mx-auto flex flex-row justify-between items-center py-5">
         {/* Логотип */}
         <Link
           to="/"
