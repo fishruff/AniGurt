@@ -1,27 +1,9 @@
 import { Link } from "react-router-dom";
 import { Anime } from "../types/Anime";
+import { translateStatus, translateKind } from "./utils/translateInfo";
 function AnimeCard({ anime }: { anime: Anime }) {
-  let status_ru = "";
-  if (anime.status == "released") {
-    status_ru = "Вышло";
-  }
-  if (anime.status == "anons") {
-    status_ru = "Анонс";
-  }
-  if (anime.status == "ongoing") {
-    status_ru = "Выходит";
-  }
-
-  let animeKind;
-  if (anime.kind == "tv") animeKind = "Сериал";
-  if (anime.kind == "tv_special") animeKind = "Тв-спешл";
-  if (anime.kind == "ova") animeKind = "OVA";
-  if (anime.kind == "ona") animeKind = "ONA";
-  if (anime.kind == "music") animeKind = "Клип";
-  if (anime.kind == "movie") animeKind = "Фильм";
-  if (anime.kind == "special") animeKind = "Спешл";
-  if (anime.kind == "cm") animeKind = "Реклама";
-  if (anime.kind == "pv") animeKind = "Промо ролик";
+  const animeKind = translateKind(anime.kind);
+  const statusRu = translateStatus(anime.status);
 
   return (
     <div className="">
@@ -45,7 +27,7 @@ function AnimeCard({ anime }: { anime: Anime }) {
               </p>
               {/* Статус */}
               <p className="bg-gradient-to-r from-cyan-700 to-blue-700 top-2 right-2 ">
-                {status_ru}
+                {statusRu}
               </p>
               {/* Эпизоды */}
               {/* <p className="bg-blue-800  bottom-2 right-2 ">

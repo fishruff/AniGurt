@@ -6,6 +6,11 @@ import Player from "../Player";
 import { useEffect } from "react";
 import RelatedAnimeList from "../RelatedAnimeList";
 import { Anime } from "../../types/Anime";
+import {
+  translateKind,
+  translateRating,
+  translateStatus,
+} from "../utils/translateInfo";
 
 const AnimePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,35 +38,10 @@ const AnimePage = () => {
     "//kodik.cc/find-player?shikimoriID=" +
     anime.id +
     "&types=anime,anime-serial&episode=1";
-  let animeKind;
-  if (anime.kind == "tv") animeKind = "Сериал";
-  if (anime.kind == "tv_special") animeKind = "Тв-спешл";
-  if (anime.kind == "ova") animeKind = "OVA";
-  if (anime.kind == "ona") animeKind = "ONA";
-  if (anime.kind == "music") animeKind = "Клип";
-  if (anime.kind == "movie") animeKind = "Фильм";
-  if (anime.kind == "special") animeKind = "Спешл";
-  if (anime.kind == "cm") animeKind = "Реклама";
-  if (anime.kind == "pv") animeKind = "Промо ролик";
 
-  let animeRating;
-  if (anime.rating == "rx") animeRating = "Хентай";
-  if (anime.rating == "g") animeRating = "0+";
-  if (anime.rating == "pg") animeRating = "13+";
-  if (anime.rating == "pg_13") animeRating = "13+";
-  if (anime.rating == "r") animeRating = "17+";
-  if (anime.rating == "r_plus") animeRating = "17+";
-
-  let status_ru = "";
-  if (anime.status == "released") {
-    status_ru = "Вышло";
-  }
-  if (anime.status == "anons") {
-    status_ru = "Анонс";
-  }
-  if (anime.status == "ongoing") {
-    status_ru = "Выходит";
-  }
+  const animeKind = translateKind(anime.kind);
+  const animeRating = translateRating(anime.rating);
+  const statusRu = translateStatus(anime.status);
 
   console.log(anime.related);
 
@@ -108,7 +88,7 @@ const AnimePage = () => {
                 <p className="">Эпизодов: </p>
                 <p>{anime.episodes}</p>
                 <p className="">Статус: </p>
-                <p>{status_ru}</p>
+                <p>{statusRu}</p>
               </div>
               <p className=" text-2xl mt-2 mb-2">Описание</p>
               <p
@@ -120,7 +100,7 @@ const AnimePage = () => {
                 <ul className="flex flex-col lg:flex-row gap-5">
                   {anime.genres.map((genre) => (
                     <li key={genre.id} className="bg-gray-800 p-1 rounded-md">
-                      {genre.name}
+                      {genre.russian}
                     </li>
                   ))}
                 </ul>
