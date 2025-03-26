@@ -73,7 +73,7 @@ const SimilarAnime = ({ animeId }: { animeId: number }) => {
   }
   return (
     <div className="mt-5">
-      <h3 className="text-xl font-bold">Похожее:</h3>
+      <h3 className="text-xl font-bold mb-5">Похожее:</h3>
       <AnimeList animeList={data.animes} />
     </div>
   );

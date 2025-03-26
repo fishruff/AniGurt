@@ -992,7 +992,7 @@ export const GET_ANIME_SEARCH = gql`
 
 export const GET_ANIME_BY_ID = gql`
   query GetAnimeById($id: String!) {
-    animes(ids: $id, limit: 10) {
+    animes(ids: $id, limit: 20) {
       id
       malId
       name
