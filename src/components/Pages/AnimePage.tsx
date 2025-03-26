@@ -11,6 +11,7 @@ import {
   translateRating,
   translateStatus,
 } from "../utils/translateInfo";
+import SimilarAnime from "../SimilarAnime";
 
 const AnimePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -112,7 +113,15 @@ const AnimePage = () => {
           <RelatedAnimeList animeId={anime.id} />
         </div>
         <div className="">
+          <h1 className="font-bold text-xl">
+            Смотреть ~
+            <span className="italic">{anime.russian || anime.name}</span>~
+            онлайн
+          </h1>
           <Player urlPlayer={urlPlayer} />
+        </div>
+        <div className="">
+          <SimilarAnime animeId={anime.id} />
         </div>
       </div>
     </div>
