@@ -39,7 +39,6 @@ const SimilarAnime = ({ animeId }: { animeId: number }) => {
       });
   }, [animeId]);
 
-  // 🟢 Вынес `useQuery` НАВЕРХ, он вызывается всегда
   const animeIds = similarItems.map((anime) => anime.id).join(", ");
   const {
     loading: gqlLoading,
@@ -51,7 +50,7 @@ const SimilarAnime = ({ animeId }: { animeId: number }) => {
   });
 
   if (loading) {
-    return <p>Загрузка связанных аниме...</p>;
+    return <p>Загрузка похожих аниме...</p>;
   }
 
   if (error) {
@@ -59,7 +58,7 @@ const SimilarAnime = ({ animeId }: { animeId: number }) => {
   }
 
   if (similarItems.length === 0) {
-    return <p>Нет связанных аниме.</p>;
+    return <p>Нет похожих аниме.</p>;
   }
 
   if (gqlLoading) {

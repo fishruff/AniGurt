@@ -9,9 +9,9 @@ import { useEffect } from "react";
 export default function Manga() {
   const { loading, error, data } = useQuery(GET_TOP_MANGA);
 
-    useEffect(() => {
-      document.title = "Манга | AniGurt";
-    });
+  useEffect(() => {
+    document.title = "Манга | AniGurt";
+  });
 
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
@@ -30,8 +30,6 @@ export default function Manga() {
     volumes: number;
     chapters: number;
   }
-  console.log(data);
-  console.log("Manga data:", data);
 
   return (
     <ul className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-10 ">
@@ -56,7 +54,6 @@ export default function Manga() {
                 {manga.status}
               </p>
 
-
               <p className="ttext-xl font-semibold truncate px-4 pt-3">
                 {" "}
                 {manga.russian || manga.name}
@@ -66,7 +63,7 @@ export default function Manga() {
                 <p className="text-sm text-gray-400">{manga.kind}</p>
                 <p className="text-sm text-gray-400">{manga.airedOn.year}</p>
               </div>
-              </div>
+            </div>
           </Link>
         </li>
       ))}

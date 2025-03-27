@@ -26,8 +26,6 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
         return res.json();
       })
       .then((data) => {
-        // console.log("Ответ от API:", data);
-
         if (Array.isArray(data)) {
           setRelatedItems(data);
         } else {
@@ -52,8 +50,6 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
     variables: { id: animeIds },
     skip: animeIds.length === 0,
   });
-
-  console.log("rel " + animeIds);
 
   if (loading) {
     return <p>Загрузка связанных аниме...</p>;

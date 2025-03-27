@@ -91,7 +91,7 @@ const genres = [
     name_ru: "Психологическое",
   },
   {
-    id: 41,
+    id: 117,
     name: "Thriller",
     name_ru: "Триллер",
   },

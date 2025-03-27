@@ -44,8 +44,6 @@ const AnimePage = () => {
   const animeRating = translateRating(anime.rating);
   const statusRu = translateStatus(anime.status);
 
-  console.log(anime.related);
-
   return (
     <div className="p-10   text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
       <div

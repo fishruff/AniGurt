@@ -15,8 +15,11 @@ export type User = {
 };
 
 // Регистрация пользователя
-export const register = async (email: string, password: string, username: string) => {
-  console.log({ email, password, username }); 
+export const register = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
   try {
     const newUser = await pb.collection("users").create({
       email,

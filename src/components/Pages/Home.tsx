@@ -57,8 +57,6 @@ function Home() {
 
   if (!data || !data.animes) return <p>Нет данных</p>;
 
-  console.log(adminAnime.data);
-
   return (
     <div className="h-screen w-full">
       <Swiper
@@ -82,7 +80,6 @@ function Home() {
               {/* Затемнение */}
               <div className="absolute inset-0 bg-black/50"></div>
 
-              {/* Фоновое изображение */}
               <img
                 src={
                   anime.screenshots[0]?.originalUrl || anime.poster.originalUrl
@@ -90,8 +87,6 @@ function Home() {
                 alt={anime.name}
                 className="w-full h-full object-cover"
               />
-
-              {/* Текст поверх */}
               <div className="absolute bottom-10 left-5 sm:left-10 text-white">
                 <Link to={`/anime/${anime.id}`}>
                   <h2 className="text-xl sm:text-2xl md:text-4xl font-bold">

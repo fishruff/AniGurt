@@ -39,13 +39,13 @@ export default function TopAnimeList() {
 
   useEffect(() => {
     if (data?.animes) {
-      setAnimeList((prev) => [...prev, ...data.animes]); // Добавляем новые данные
+      setAnimeList((prev) => [...prev, ...data.animes]);
     }
   }, [data]);
 
   useEffect(() => {
-    setAnimeList([]); // Очистка списка при изменении фильтров
-    setPage(1); // Сброс страницы
+    setAnimeList([]);
+    setPage(1);
   }, [filters]);
 
   const lastAnimeRef = useCallback(
@@ -55,7 +55,7 @@ export default function TopAnimeList() {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          setPage((prev) => prev + 1); // Увеличиваем номер страницы
+          setPage((prev) => prev + 1);
         }
       });
 
@@ -65,8 +65,6 @@ export default function TopAnimeList() {
   );
 
   if (error) return <p>Ошибка: {error.message}</p>;
-
-  console.log(page);
 
   return (
     <div className="flex flex-col lg:flex-row-reverse gap-20 p-10 mt-20">

@@ -4,8 +4,6 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_ANIME_SEARCH } from "../apolloClient";
 import Spiner from "../Spiner";
 import { useState, useEffect, useCallback } from "react";
-// import { Anime } from "../../types/Anime";
-// import AnimeList from "../AnimeList";
 import { Anime } from "../../types/Anime";
 import AnimeCard from "../AnimeCard";
 
@@ -15,7 +13,6 @@ function SearchAnime() {
     useLazyQuery(GET_ANIME_SEARCH);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
-  // Загрузка последних поисков из localStorage
   useEffect(() => {
     const savedSearches = localStorage.getItem("recentAnimeSearches");
     if (savedSearches) {
@@ -24,7 +21,6 @@ function SearchAnime() {
     document.title = "Поиск Аниме | AniGurt";
   }, []);
 
-  // Сохранение поисковых запросов
   const saveSearchTerm = useCallback((term: string) => {
     if (term.trim() === "") return;
 

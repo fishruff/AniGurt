@@ -30,7 +30,6 @@ const RegistrationPage = () => {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-900 text-amber-50">
-      {/* Фоновое изображение */}
       <div className="lg:w-1/2 relative">
         <img
           className="w-full h-64 lg:h-screen object-cover blur-xs"
@@ -39,14 +38,12 @@ const RegistrationPage = () => {
         />
       </div>
 
-      {/* Форма регистрации */}
       <div className="lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-10">
         <div className="w-full max-w-md">
           <h2 className="mb-5 text-3xl font-semibold text-center">
             Регистрация на <span className="text-[#e82c4c]">AniGurt</span>
           </h2>
 
-          {/* Поля ввода */}
           <input
             className="w-full bg-gray-800 p-3 rounded-md outline-none mb-4"
             placeholder="Имя пользователя"
@@ -72,7 +69,6 @@ const RegistrationPage = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          {/* Кнопка регистрации */}
           <button
             onClick={handleSubmit}
             className="w-full bg-[#e82c4c] p-3 rounded-md hover:bg-[#d6253f] transition-colors duration-300"
@@ -80,7 +76,6 @@ const RegistrationPage = () => {
             Зарегистрироваться
           </button>
 
-          {/* Социальные кнопки */}
           <div className="text-center mt-8">
             <h2 className="text-2xl mb-5">То же самое что и</h2>
             <div className="flex flex-col lg:flex-row gap-4 justify-center mb-5">
@@ -96,11 +91,13 @@ const RegistrationPage = () => {
             </div>
           </div>
 
-          {/* Ссылка на вход */}
           <div className="text-center mt-6 mb-20">
             <h2>
               Уже есть аккаунт?{" "}
-              <Link to="/login" className="text-[#e82c4c] font-bold hover:underline">
+              <Link
+                to="/login"
+                className="text-[#e82c4c] font-bold hover:underline"
+              >
                 Войти!
               </Link>
             </h2>
