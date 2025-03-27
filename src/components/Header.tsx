@@ -42,7 +42,7 @@ function Header() {
       />
 
       {/* Контент хедера */}
-      <div className="container relative mx-auto flex flex-row justify-between items-center py-5">
+      <div className="container relative mx-auto flex flex-row justify-between items-center p-5">
         {/* Логотип */}
         <Link
           to="/"

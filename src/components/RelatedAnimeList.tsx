@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_ANIME_BY_ID } from "./apolloClient";
+import AnimeList from "./AnimeList";
 
 interface RelatedAnime {
   relation_russian: string;
@@ -40,6 +43,18 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
       });
   }, [animeId]);
 
+  const animeIds = relatedItems.map((anime) => anime.anime?.id).join(", ");
+  const {
+    loading: gqlLoading,
+    error: gqlError,
+    data,
+  } = useQuery(GET_ANIME_BY_ID, {
+    variables: { id: animeIds },
+    skip: animeIds.length === 0,
+  });
+
+  console.log("rel " + animeIds);
+
   if (loading) {
     return <p>Загрузка связанных аниме...</p>;
   }
@@ -52,29 +67,21 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
     return <p>Нет связанных аниме.</p>;
   }
 
+  if (gqlLoading) {
+    return <p>Загрузка данных о похожих аниме...</p>;
+  }
+
+  if (gqlError) {
+    return (
+      <p className="text-red-500">Ошибка загрузки данных: {gqlError.message}</p>
+    );
+  }
+
   return (
     <div className="mt-5">
-      <h3 className="text-xl font-bold">Связанные аниме и манга:</h3>
+      <h3 className="text-xl font-bold mb-5">Связанные аниме:</h3>
 
-      {relatedItems.map((rel) => {
-        const item = rel.anime || rel.manga;
-        const type = rel.anime ? "anime" : "manga";
-
-        if (!item) {
-          return null; // Пропускаем, если нет ни аниме, ни манги
-        }
-
-        return (
-          <li key={item.id}>
-            <a
-              href={`/${type}/${item.id}`}
-              className="text-[#e82c4c] hover:underline"
-            >
-              {item.russian || item.name} ({rel.relation_russian})
-            </a>
-          </li>
-        );
-      })}
+      <AnimeList animeList={data.animes} />
     </div>
   );
 };
