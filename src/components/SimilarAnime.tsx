@@ -31,8 +31,8 @@ const SimilarAnime = ({ animeId }: { animeId: number }) => {
         }
       })
       .catch((err) => {
-        console.error("Ошибка загрузки связанных аниме:", err);
-        setError("Не удалось загрузить связанные аниме");
+        console.error("Ошибка загрузки похожих аниме:", err);
+        setError("Не удалось загрузить похожих аниме");
       })
       .finally(() => {
         setLoading(false);
