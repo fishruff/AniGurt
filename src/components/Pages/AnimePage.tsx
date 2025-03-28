@@ -45,7 +45,7 @@ const AnimePage = () => {
   const statusRu = translateStatus(anime.status);
 
   return (
-    <div className="p-10   text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
+    <div className="p-10  text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
       <div
         className="absolute  inset-0 w-full h-[50%] bg-cover bg-center blur-xl"
         style={{ backgroundImage: `url(${anime.poster.originalUrl})` }}
