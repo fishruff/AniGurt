@@ -77,7 +77,7 @@ const RelatedAnimeList = ({ animeId }: { animeId: number }) => {
     <div className="mt-5">
       <h3 className="text-xl font-bold mb-5">Связанные аниме:</h3>
 
-      <AnimeList animeList={data.animes} />
+      <AnimeList animeList={data?.animes} />
     </div>
   );
 };

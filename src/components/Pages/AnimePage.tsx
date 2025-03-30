@@ -123,7 +123,7 @@ const AnimePage = () => {
                     <div
                       key={score.score}
                       className=" p-1 bg-blue-500 rounded transition-all my-1"
-                      style={{ width: `${percentage}%` }} // ширина зависит от значения
+                      style={{ width: `${percentage}%` }}
                     >
                       {score.count}
                     </div>
@@ -133,7 +133,9 @@ const AnimePage = () => {
               })}
             </div>
 
-            <h1 className="mt-10">В списках у пользователей:</h1>
+            <h1 className="mt-10 bg-gray-500 p-2 rounded-md">
+              В списках у пользователей:
+            </h1>
             <div className="flex flex-col ">
               {anime.statusesStats.slice(0, 5).map((score) => {
                 const percentage = (score.count / maxStatusStat.count) * 100;
@@ -142,7 +144,7 @@ const AnimePage = () => {
                     <div
                       key={score.status}
                       className=" p-1 bg-blue-500 rounded transition-all my-1"
-                      style={{ width: `${percentage}%` }} // ширина зависит от значения
+                      style={{ width: `${percentage}%` }}
                     >
                       {score.count}
                     </div>
