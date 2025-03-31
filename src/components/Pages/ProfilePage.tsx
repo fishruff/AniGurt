@@ -3,16 +3,13 @@ import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord, logout } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import Spiner from "../Spiner";
+import StatLine from "../StatLine";
 
 const ProfilePage = () => {
   const [user, setUser] = useState<UserRecord | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  
-
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -48,7 +45,15 @@ const ProfilePage = () => {
     window.location.reload();
   };
 
-  if (isLoading) return <Spiner/>;
+  if (isLoading) return <Spiner />;
+
+  const stats: Record<string, number>[] = [
+    { plane: 5 },
+    { watch: 2 },
+    { complete: 17 },
+    { hold: 4 },
+    { drope: 3 },
+  ];
 
   return user ? (
     <div className="relative w-full min-h-screen flex flex-col lg:flex-row text-white p-6 lg:p-10">
@@ -67,23 +72,17 @@ const ProfilePage = () => {
         {/* Блок статистики */}
         <div className="bg-gray-800 p-5 rounded-lg shadow-md mb-6">
           <h2 className="text-xl mb-3">Статистика</h2>
-          <ul className="space-y-1">
-            <li>
-              📌 Запланировано: <span className="text-blue-400">12</span>
-            </li>
-            <li>
-              ▶️ Смотрю: <span className="text-green-400">3</span>
-            </li>
-            <li>
-              ✅ Просмотрено: <span className="text-yellow-400">45</span>
-            </li>
-            <li>
-              ⏳ Отложено: <span className="text-purple-400">5</span>
-            </li>
-            <li>
-              ❌ Брошено: <span className="text-red-400">2</span>
-            </li>
-          </ul>
+          <div className="">
+            <h1>Список аниме</h1>
+            <StatLine stats={stats} />
+          </div>
+          <div className="flex gap-2 *:hover:text-[#e82c4c]">
+            <a href="#">Запланировано {stats.plane}</a>
+            <a href="#">Смотрю {stats.watch}</a>
+            <a href="#">Просмотрено {stats.complete}</a>
+            <a href="#">Отложено {stats.hold}</a>
+            <a href="#">Брошено {stats.drope}</a>
+          </div>
         </div>
 
         {/* Меню */}
@@ -93,7 +92,8 @@ const ProfilePage = () => {
             <li>⭐ Избранное</li>
             <li>👥 Друзья</li>
             <li>
-              ⏳ Время за аниме: <span className="text-blue-400">300 часов</span>
+              ⏳ Время за аниме:{" "}
+              <span className="text-blue-400">300 часов</span>
             </li>
           </ul>
         </div>
