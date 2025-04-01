@@ -48,11 +48,11 @@ const ProfilePage = () => {
   if (isLoading) return <Spiner />;
 
   const stats: Record<string, number>[] = [
-    { plane: 5 },
-    { watch: 2 },
-    { complete: 17 },
+    { plane: 13 },
+    { watch: 4 },
+    { complete: 24 },
     { hold: 4 },
-    { drope: 3 },
+    { drope: 1 },
   ];
 
   return user ? (
@@ -76,12 +76,12 @@ const ProfilePage = () => {
             <h1>Список аниме</h1>
             <StatLine stats={stats} />
           </div>
-          <div className="flex gap-2 *:hover:text-[#e82c4c]">
-            <a href="#">Запланировано {stats.plane}</a>
-            <a href="#">Смотрю {stats.watch}</a>
-            <a href="#">Просмотрено {stats.complete}</a>
-            <a href="#">Отложено {stats.hold}</a>
-            <a href="#">Брошено {stats.drope}</a>
+          <div className="flex justify-between gap-2 *:hover:text-[#e82c4c]">
+            <a href="#">Запланировано </a>
+            <a href="#">Смотрю </a>
+            <a href="#">Просмотрено </a>
+            <a href="#">Отложено </a>
+            <a href="#">Брошено </a>
           </div>
         </div>
 

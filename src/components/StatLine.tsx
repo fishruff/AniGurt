@@ -10,22 +10,19 @@ const StatLine = ({ stats }: { stats: Record<string, number>[] }) => {
   ];
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex w-full h-8 rounded-md overflow-hidden border border-gray-700">
       {stats.map((stat, index) => {
         const key = Object.keys(stat)[0]; // Название параметра
         const value = stat[key]; // Значение
         const percentage = (value / maxStat) * 100;
 
         return (
-          <div key={key} className="flex items-center">
-            <span className="w-20 text-white">{key}</span>{" "}
-            {/* Название параметра */}
-            <div
-              className={`relative h-8 rounded-md ${colors[index]} flex items-center justify-center text-white font-bold`}
-              style={{ width: `${percentage}%`, minWidth: "40px" }}
-            >
-              {value}
-            </div>
+          <div
+            key={key}
+            className={`flex hover:outline-1 hover:outline-amber-50  transition-all duration-30 items-center justify-center text-white font-bold ${colors[index]}`}
+            style={{ width: `${percentage}%`, minWidth: "40px" }}
+          >
+            {value}
           </div>
         );
       })}
