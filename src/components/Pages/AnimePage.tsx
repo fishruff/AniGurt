@@ -44,6 +44,13 @@ const AnimePage = () => {
   const animeRating = translateRating(anime.rating);
   const statusRu = translateStatus(anime.status);
 
+  const maxScoreStat = anime.scoresStats.reduce((acc, curr) =>
+    acc.count > curr.count ? acc : curr,
+  );
+  const maxStatusStat = anime.statusesStats.reduce((acc, curr) =>
+    acc.count > curr.count ? acc : curr,
+  );
+
   return (
     <div className="p-10  text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
       <div
@@ -104,6 +111,45 @@ const AnimePage = () => {
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+          <div className="">
+            <h1>Оценки пользователей:</h1>
+            <div className="flex flex-col ">
+              {anime.scoresStats.slice(0, 5).map((score) => {
+                const percentage = (score.count / maxScoreStat.count) * 100;
+                return (
+                  <div className="flex text-center items-baseline gap-2 justify-between">
+                    <div
+                      key={score.score}
+                      className=" p-1 bg-blue-500 rounded transition-all my-1"
+                      style={{ width: `${percentage}%` }} // ширина зависит от значения
+                    >
+                      {score.count}
+                    </div>
+                    {score.score}
+                  </div>
+                );
+              })}
+            </div>
+
+            <h1 className="mt-10">В списках у пользователей:</h1>
+            <div className="flex flex-col ">
+              {anime.statusesStats.slice(0, 5).map((score) => {
+                const percentage = (score.count / maxStatusStat.count) * 100;
+                return (
+                  <div className="flex text-center items-baseline gap-2 justify-between">
+                    <div
+                      key={score.status}
+                      className=" p-1 bg-blue-500 rounded transition-all my-1"
+                      style={{ width: `${percentage}%` }} // ширина зависит от значения
+                    >
+                      {score.count}
+                    </div>
+                    {score.status}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
