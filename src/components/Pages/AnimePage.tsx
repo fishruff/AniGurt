@@ -105,7 +105,7 @@ const AnimePage = () => {
                 <h3 className="text-xl">Жанры:</h3>
                 <ul className="flex flex-col lg:flex-row gap-5">
                   {anime.genres.map((genre) => (
-                    <li key={genre.id} className="bg-gray-800 p-1 rounded-md">
+                    <li key={genre.id} className="bg-gray-800 p-2 rounded-md ">
                       {genre.russian}
                     </li>
                   ))}
@@ -114,7 +114,9 @@ const AnimePage = () => {
             </div>
           </div>
           <div className="">
-            <h1>Оценки пользователей:</h1>
+            <h1 className="bg-gray-800 p-2 rounded-md mt-10 lg:mt-0">
+              Оценки пользователей:
+            </h1>
             <div className="flex flex-col ">
               {anime.scoresStats.slice(0, 5).map((score) => {
                 const percentage = (score.count / maxScoreStat.count) * 100;
@@ -133,7 +135,7 @@ const AnimePage = () => {
               })}
             </div>
 
-            <h1 className="mt-10 bg-gray-500 p-2 rounded-md">
+            <h1 className="mt-10 bg-gray-800 p-2 rounded-md">
               В списках у пользователей:
             </h1>
             <div className="flex flex-col ">
