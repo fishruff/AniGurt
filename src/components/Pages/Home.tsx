@@ -3,6 +3,7 @@ import {
   GET_NEW_RANKED_ANIME,
   GET_EX_SEASON_ANIME,
   GET_ADMIN_ANIME,
+  GET_EXEX_SEASON_ANIME,
 } from "../apolloClient";
 import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
@@ -45,6 +46,7 @@ function Home() {
   });
 
   const ex_season = useQuery(GET_EX_SEASON_ANIME);
+  const exex_season = useQuery(GET_EXEX_SEASON_ANIME);
 
   const adminAnime = useQuery(GET_ADMIN_ANIME);
 
@@ -104,6 +106,15 @@ function Home() {
         <AnimeList
           animeList={ex_season.data?.animes || []}
           loading={ex_season.loading}
+        />
+      </div>
+      <div className="mt-5 p-5">
+        <h2 className="text-2xl text-amber-50 mb-5">
+          Аниме позапрошлого сезона
+        </h2>
+        <AnimeList
+          animeList={exex_season.data?.animes || []}
+          loading={exex_season.loading}
         />
       </div>
 
