@@ -60,59 +60,68 @@ const AnimePage = () => {
       <div className="absolute inset-0 bg-black opacity-70"></div>
 
       <div className="flex flex-col lg:mt-20 relative w-9/10 inset-0 justify-between mx-auto gap-20 z-10">
-        <div className="flex flex-col lg:flex-row">
-          <img
-            src={anime.poster.originalUrl}
-            alt={anime.name}
-            className=" w-90 h-120 rounded-lg inset-0 mx-auto lg:mx-0"
-          />
-          <div className="lg:p-10 lg:pt-0">
-            <div className="mt-10 lg:mt-0">
-              <p className="text-2xl text-white font-bold">{anime.russian}</p>
-              <p className="text-amber-50 gap-5 flex items-center">
-                {anime.name}
-                <a
-                  className="text-[#56a6f7] text-xs"
-                  href={anime.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  shikimori
-                </a>
-              </p>
+        <div className="flex flex-col lg:flex-row justify-between">
+          <div className="flex flex-col lg:flex-row">
+            {/* POSTER */}
+            <img
+              src={anime.poster.originalUrl}
+              alt={anime.name}
+              className=" w-90 h-120 rounded-lg inset-0 mx-auto lg:mx-0"
+            />
 
-              <div className="flex gap-10 mt-5 *:text-[#7e8597] *:p-1.5 *:border-1 *:border-amber-[#7e8597] *:rounded-2xl">
-                <p className="">{animeRating}</p>
-                <p className="">{anime.airedOn?.year}</p>
-                <p className="">{animeKind}</p>
-              </div>
+            <div className="lg:p-10 lg:pt-0">
+              <div className="mt-10 lg:mt-0">
+                <p className="text-2xl text-white font-bold">{anime.russian}</p>
+                <p className="text-amber-50 gap-5 flex items-center">
+                  {anime.name}
+                  <a
+                    className="text-[#56a6f7] text-xs"
+                    href={anime.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    shikimori
+                  </a>
+                </p>
 
-              <p className=" text-2xl mt-5">Информация</p>
-              <div className="grid grid-cols-2 gap-2 *:mt-2">
-                <p className="">Оценка: </p>
-                <p>{anime.score}</p>
-                <p className="">Эпизодов: </p>
-                <p>{anime.episodes}</p>
-                <p className="">Статус: </p>
-                <p>{statusRu}</p>
-              </div>
-              <p className=" text-2xl mt-2 mb-2">Описание</p>
-              <p
-                dangerouslySetInnerHTML={{ __html: newDesc || "" }}
-                className="mt-2"
-              ></p>
-              <div className="mt-4">
-                <h3 className="text-xl">Жанры:</h3>
-                <ul className="flex flex-col lg:flex-row gap-5">
-                  {anime.genres.map((genre) => (
-                    <li key={genre.id} className="bg-gray-800 p-2 rounded-md ">
-                      {genre.russian}
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex gap-10 mt-5 *:text-[#7e8597] *:p-1.5 *:border-1 *:border-amber-[#7e8597] *:rounded-2xl">
+                  <p>{animeRating}</p>
+                  <p>{anime.airedOn?.year}</p>
+                  <p>{animeKind}</p>
+                </div>
+
+                <p className=" text-2xl mt-5">Информация</p>
+                <div className="grid grid-cols-2 gap-2 *:mt-2">
+                  <p className="">Оценка: </p>
+                  <p>{anime.score}</p>
+                  <p className="">Эпизодов: </p>
+                  <p>{anime.episodes}</p>
+                  <p className="">Статус: </p>
+                  <p>{statusRu}</p>
+                </div>
+                <p className=" text-2xl mt-2 mb-2">Описание</p>
+                <p
+                  dangerouslySetInnerHTML={{ __html: newDesc || "" }}
+                  className="mt-2"
+                ></p>
+                <div className="mt-4">
+                  <h3 className="text-xl">Жанры:</h3>
+                  <ul className="flex flex-col lg:flex-row gap-5">
+                    {anime.genres.map((genre) => (
+                      <li
+                        key={genre.id}
+                        className="bg-gray-800 p-2 rounded-md "
+                      >
+                        {genre.russian}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* STATS */}
           <div className="">
             <h1 className="bg-gray-800 p-2 rounded-md mt-10 lg:mt-0">
               Оценки пользователей:
@@ -135,7 +144,7 @@ const AnimePage = () => {
               })}
             </div>
 
-            <h1 className="mt-10 bg-gray-800 p-2 rounded-md">
+            <h1 className="mt-10 bg-gray-800 p-2 rounded-md w-60">
               В списках у пользователей:
             </h1>
             <div className="flex flex-col ">
