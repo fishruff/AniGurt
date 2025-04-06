@@ -4,6 +4,7 @@ import {
   GET_EX_SEASON_ANIME,
   GET_ADMIN_ANIME,
   GET_EXEX_SEASON_ANIME,
+  GET_MOVIE_ANIME,
 } from "../apolloClient";
 import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
@@ -49,7 +50,7 @@ function Home() {
   const exex_season = useQuery(GET_EXEX_SEASON_ANIME);
 
   const adminAnime = useQuery(GET_ADMIN_ANIME);
-
+  const movieAnime = useQuery(GET_MOVIE_ANIME);
   useEffect(() => {
     document.title = "AniGurt";
   }, []);
@@ -123,6 +124,13 @@ function Home() {
         <AnimeList
           animeList={adminAnime.data?.animes || []}
           loading={adminAnime.loading}
+        />
+      </div>
+      <div className="mt-5 p-5">
+        <h2 className="text-2xl text-amber-50 mb-5">Лучшие аниме фильмы</h2>
+        <AnimeList
+          animeList={movieAnime.data?.animes || []}
+          loading={movieAnime.loading}
         />
       </div>
       <Footer />
