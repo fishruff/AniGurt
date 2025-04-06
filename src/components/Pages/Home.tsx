@@ -6,6 +6,7 @@ import {
   GET_EXEX_SEASON_ANIME,
   GET_MOVIE_ANIME,
 } from "../apolloClient";
+import { translateRating, translateStatus } from "../utils/translateInfo";
 import Spiner from "../Spiner";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -77,29 +78,39 @@ function Home() {
           } as React.CSSProperties
         }
       >
-        {data.animes.slice(0, 6).map((anime: Anime) => (
-          <SwiperSlide key={anime.id}>
-            <div className="relative w-full h-full">
-              {/* Затемнение */}
-              <div className="absolute inset-0 bg-black/50"></div>
-
-              <img
-                src={
-                  anime.screenshots[0]?.originalUrl || anime.poster.originalUrl
-                }
-                alt={anime.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-10 left-5 sm:left-10 text-white">
+        {data.animes.slice(0, 6).map((anime: Anime) => {
+          const animeRating = translateRating(anime.rating);
+          const statusRu = translateStatus(anime.status);
+          return (
+            <SwiperSlide key={anime.id}>
+              <div className="relative w-full h-full">
+                {/* Затемнение */}
+                <div className="absolute inset-0 bg-black/50"></div>
                 <Link to={`/anime/${anime.id}`}>
-                  <h2 className="text-xl sm:text-2xl md:text-4xl font-bold">
-                    {anime.russian || anime.name}
-                  </h2>
+                  <img
+                    src={
+                      anime.screenshots[0]?.originalUrl ||
+                      anime.poster.originalUrl
+                    }
+                    alt={anime.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-10 left-5 sm:left-10 text-white ">
+                    <h2 className="text-xl sm:text-2xl md:text-4xl font-bold duration-300  transition ease-in-out  hover:text-[#e82c4c]">
+                      {anime.russian || anime.name}
+                    </h2>
+                    <div className="flex mt-5 gap-5 divide-x divide-gray-100 *:pr-5 text-white">
+                      <p>⭐ {anime.score}</p>
+                      <p>{anime.airedOn?.year}</p>
+                      <p>{animeRating}</p>
+                      <p>{statusRu}</p>
+                    </div>
+                  </div>
                 </Link>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
       <div className="mt-5 p-5">
