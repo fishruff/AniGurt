@@ -31,7 +31,15 @@ const AnimePage = () => {
 
   if (loading) return <Spiner />;
   if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
-  if (!anime) return <p>Аниме не найдено</p>;
+  if (!anime)
+    return (
+      <div className="text-2xl text-amber-50 absolute top-[50%] inset-x-0 mx-auto text-center">
+        <p className="text-xl text-white ">Аниме не найдено :( </p>
+        <a href="/" className="text-blue-500">
+          вернуться на главную
+        </a>
+      </div>
+    );
 
   const newDesc =
     anime.description !== null ? anime.descriptionHtml : "Описания пока нет :(";
