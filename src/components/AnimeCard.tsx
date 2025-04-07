@@ -18,7 +18,7 @@ function AnimeCard({ anime }: { anime: Anime }) {
 
   const scoreBg = anime.score ? getScoreColor(anime.score) : "bg-gray-400";
   return (
-    <div className="">
+    <div className="p-2">
       <li
         key={anime.id}
         className="rounded-lg overflow-hidden duration-300  text-amber-50 hover:scale-102 hover:shadow-md hover:shadow-[#404349] hover:text-[#e82c4c] transition ease-in-out"
