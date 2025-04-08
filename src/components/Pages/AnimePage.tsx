@@ -12,6 +12,7 @@ import {
   translateStatus,
 } from "../utils/translateInfo";
 import SimilarAnime from "../SimilarAnime";
+import AnimeFranchise from "../AnimeFranchise";
 
 const AnimePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -174,8 +175,11 @@ const AnimePage = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        {/* <div className="">
           <RelatedAnimeList animeId={anime.id} />
+        </div> */}
+        <div className="">
+          <AnimeFranchise animeId={anime.id} />
         </div>
         <div className="">
           <h1 className="font-bold text-xl">
