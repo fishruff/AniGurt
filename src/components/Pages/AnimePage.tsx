@@ -4,7 +4,7 @@ import { GET_ANIME_BY_ID } from "../apolloClient";
 import Spiner from "../Spiner";
 import Player from "../Player";
 import { useEffect } from "react";
-import RelatedAnimeList from "../RelatedAnimeList";
+// import RelatedAnimeList from "../RelatedAnimeList";
 import { Anime } from "../../types/Anime";
 import {
   translateKind,
