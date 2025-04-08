@@ -192,39 +192,51 @@ const AnimePage = () => {
         <div className="">
           <SimilarAnime animeId={anime.id} />
         </div>
-        {/* music */}{" "}
+        {/* music */}
         <div className="mt-10 border-t-2 border-gray-500">
           <h1 className="mt-10 text-2xl">Музыка из опенинга и эндинга</h1>
-          {anime.videos.map((video) => {
-            if (video.kind === "op" || video.kind === "ed")
-              return (
-                <a
-                  href={video.url}
-                  target="_blank"
-                  className="flex gap-5 mt-3 *:items-center *:p-1 ml-5 duration-300 ease-in-out hover:text-[#56a6f7]"
-                >
-                  <div className="flex  gap-1 bg-gray-950 rounded-md ">
-                    <svg
-                      className="h-4"
-                      viewBox="0 0 16 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+          {anime.videos && anime.videos.length > 0 ? (
+            <div className="ml-5">
+              {anime.videos.map((video) => {
+                if (video.kind === "op" || video.kind === "ed") {
+                  return (
+                    <a
+                      key={video.url} // Добавлен key для React
+                      href={video.url}
+                      target="_blank"
+                      rel="noopener noreferrer" // Добавлено для безопасности
+                      className="flex gap-5 mt-3 items-center p-1 duration-300 ease-in-out hover:text-[#56a6f7]"
                     >
-                      <path
-                        d="M6 12.4999V4.73683C6 4.41581 6 4.25529 6.0584 4.12511C6.10988 4.01035 6.19278 3.9125 6.29751 3.84285C6.41632 3.76384 6.57465 3.73745 6.89131 3.68468L12.758 2.7069C13.1853 2.63568 13.3989 2.60007 13.5655 2.66192C13.7116 2.71619 13.8341 2.81995 13.9116 2.95516C14 3.10924 14 3.32584 14 3.75905V11.1666M6 12.4999C6 13.6045 5.10457 14.4999 4 14.4999C2.89543 14.4999 2 13.6045 2 12.4999C2 11.3953 2.89543 10.4999 4 10.4999C5.10457 10.4999 6 11.3953 6 12.4999ZM14 11.1666C14 12.2711 13.1046 13.1666 12 13.1666C10.8954 13.1666 10 12.2711 10 11.1666C10 10.062 10.8954 9.16656 12 9.16656C13.1046 9.16656 14 10.062 14 11.1666Z"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                    <p>{video.kind}</p>
-                  </div>
-
-                  <p>{video.name}</p>
-                </a>
-              );
-          })}
+                      <div className="flex gap-1 bg-gray-950 rounded-md items-center p-1">
+                        <svg
+                          className="h-4"
+                          viewBox="0 0 16 17"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6 12.4999V4.73683C6 4.41581 6 4.25529 6.0584 4.12511C6.10988 4.01035 6.19278 3.9125 6.29751 3.84285C6.41632 3.76384 6.57465 3.73745 6.89131 3.68468L12.758 2.7069C13.1853 2.63568 13.3989 2.60007 13.5655 2.66192C13.7116 2.71619 13.8341 2.81995 13.9116 2.95516C14 3.10924 14 3.32584 14 3.75905V11.1666M6 12.4999C6 13.6045 5.10457 14.4999 4 14.4999C2.89543 14.4999 2 13.6045 2 12.4999C2 11.3953 2.89543 10.4999 4 10.4999C5.10457 10.4999 6 11.3953 6 12.4999ZM14 11.1666C14 12.2711 13.1046 13.1666 12 13.1666C10.8954 13.1666 10 12.2711 10 11.1666C10 10.062 10.8954 9.16656 12 9.16656C13.1046 9.16656 14 10.062 14 11.1666Z"
+                            stroke="white"
+                            strokeWidth="2" // Исправлено на camelCase
+                            strokeLinecap="round" // Исправлено на camelCase
+                            strokeLinejoin="round" // Исправлено на camelCase
+                          ></path>
+                        </svg>
+                        <p className="capitalize">{video.kind}</p>{" "}
+                        {/* Добавлен capitalize */}
+                      </div>
+                      <p>{video.name}</p>
+                    </a>
+                  );
+                }
+                return null; // Явный возврат null для других типов видео
+              })}
+            </div>
+          ) : (
+            <p className="mt-3 ml-5 text-gray-400">
+              Нет информации о музыкальных темах
+            </p> // Улучшенное сообщение
+          )}
         </div>
       </div>
     </div>
