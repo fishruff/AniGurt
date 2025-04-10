@@ -15,7 +15,6 @@ import "swiper/swiper-bundle.css";
 import { useEffect } from "react";
 import { Anime } from "../../types/Anime";
 import AnimeList from "../AnimeList";
-import Footer from "../Footer";
 
 function Home() {
   function getSeason(): string {
@@ -144,7 +143,6 @@ function Home() {
           loading={movieAnime.loading}
         />
       </div>
-      <Footer />
     </div>
   );
 }

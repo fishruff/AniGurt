@@ -14,6 +14,7 @@ import LoginPage from "../components/Pages/LoginPage";
 import RegestrationPage from "../components/Pages/RegisterPage";
 import NotFound from "../components/Pages/NotFound";
 import RandomAnime from "../components/RandomAnime";
+import Footer from "../components/Footer";
 
 function MainLayouts() {
   return (
@@ -36,7 +37,7 @@ function MainLayouts() {
           </Routes>
         </ApolloProvider>
       </div>
-
+      <Footer />
       <Analytics />
     </div>
   );
