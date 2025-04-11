@@ -55,20 +55,34 @@ const ProfilePage = () => {
     { drope: 1 },
   ];
 
+  console.log(user);
+
   return user ? (
     <div className="relative w-full min-h-screen flex flex-col lg:flex-row text-white p-6 lg:p-10">
-      {/* Фоновое изображение */}
-      <div
-        className="absolute inset-0 w-full h-full bg-center bg-cover"
-        style={{ backgroundImage: "url('/bg.jpg')" }}
-      ></div>
-      <div className="absolute inset-0 bg-black opacity-70"></div>
-
       {/* Левая часть с информацией */}
-      <div className="z-10 w-full lg:w-1/2 flex flex-col justify-around p-5">
-        {/* Никнейм */}
-        <h1 className="text-3xl lg:text-4xl font-bold mb-6">{user.name}</h1>
-
+      <div className="z-10 w-full lg:w-2/3 flex flex-col justify-around p-5">
+        <div className="flex gap-5 items-center">
+          <img
+            className="w-40 h-40 rounded-xl  object-cover"
+            src={`https://anigurt-backend.onrender.com/api/files/_pb_users_auth_/${user.id}/${user.avatar}`}
+            alt={user.name}
+            loading="lazy"
+          />
+          <div className="flex-col">
+            <h1 className="text-3xl lg:text-4xl font-bold">{user.name}</h1>
+            <div className="flex mt-5 gap-5 divide-x divide-gray-100 *:pr-5 text-white">
+              <p>муж.</p>
+              <p>21yo</p>
+              <a
+                href="https://t.me/fish_ruff"
+                className="duration-300  transition ease-in-out  hover:text-[#e82c4c]"
+              >
+                fish_ruff
+              </a>
+              <p>{user.email}</p>
+            </div>
+          </div>
+        </div>
         {/* Блок статистики */}
         <div className="bg-gray-800 p-5 rounded-lg shadow-md mb-6">
           <h2 className="text-xl mb-3">Статистика</h2>
@@ -85,19 +99,6 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Меню */}
-        <div className="bg-gray-800 p-5 rounded-lg shadow-md mb-6">
-          <h2 className="text-xl mb-3">Меню</h2>
-          <ul className="space-y-1">
-            <li>⭐ Избранное</li>
-            <li>👥 Друзья</li>
-            <li>
-              ⏳ Время за аниме:{" "}
-              <span className="text-blue-400">300 часов</span>
-            </li>
-          </ul>
-        </div>
-
         {/* Кнопка выхода */}
         <button
           className="bg-red-500 p-3 lg:p-4 rounded mt-4 w-full lg:w-1/2 hover:bg-red-600 transition-colors duration-300"
@@ -107,8 +108,7 @@ const ProfilePage = () => {
         </button>
       </div>
 
-      {/* Правая часть с 3D-аватаром */}
-      <div className="z-10 w-full lg:w-1/2 h-[400px] lg:h-full lg:absolute lg:bottom-0 lg:right-0">
+      <div className="z-10 w-full lg:w-1/3 h-[400px] lg:h-full lg:absolute lg:bottom-0 lg:right-0">
         <Avatar3d />
       </div>
     </div>
