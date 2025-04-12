@@ -81,16 +81,21 @@ const ProfilePage = () => {
               </a>
               <p>{user.email}</p>
             </div>
+            <button
+              className="bg-red-500 p-3 lg:p-4 rounded mt-4 w-40 hover:bg-red-600 transition-colors duration-300"
+              onClick={handleLogout}
+            >
+              Выйти
+            </button>
           </div>
         </div>
-        {/* Блок статистики */}
-        <div className="bg-gray-800 p-5 rounded-lg shadow-md mb-6">
-          <h2 className="text-xl mb-3">Статистика</h2>
+
+        <div className="bg-gray-800 p-10 rounded-xl">
           <div className="">
-            <h1>Список аниме</h1>
+            <h1 className="mb-5">Список аниме</h1>
             <StatLine stats={stats} />
           </div>
-          <div className="flex justify-between gap-2 *:hover:text-[#e82c4c]">
+          <div className="flex justify-between gap-2 *:hover:text-[#e82c4c] mt-10">
             <a href="#">Запланировано </a>
             <a href="#">Смотрю </a>
             <a href="#">Просмотрено </a>
@@ -98,16 +103,7 @@ const ProfilePage = () => {
             <a href="#">Брошено </a>
           </div>
         </div>
-
-        {/* Кнопка выхода */}
-        <button
-          className="bg-red-500 p-3 lg:p-4 rounded mt-4 w-full lg:w-1/2 hover:bg-red-600 transition-colors duration-300"
-          onClick={handleLogout}
-        >
-          Выйти
-        </button>
       </div>
-
       <div className="z-10 w-full lg:w-1/3 h-[400px] lg:h-full lg:absolute lg:bottom-0 lg:right-0">
         <Avatar3d />
       </div>
