@@ -19,7 +19,7 @@ import AnimeList from "../AnimeList";
 function Home() {
   function getSeason(): string {
     const date = new Date();
-    const month = date.getMonth() + 1; // getMonth() возвращает 0-11, поэтому добавляем 1
+    const month = date.getMonth() + 1;
     let year = date.getFullYear();
 
     let season: string;
@@ -48,100 +48,107 @@ function Home() {
 
   const ex_season = useQuery(GET_EX_SEASON_ANIME);
   const exex_season = useQuery(GET_EXEX_SEASON_ANIME);
-
   const adminAnime = useQuery(GET_ADMIN_ANIME);
   const movieAnime = useQuery(GET_MOVIE_ANIME);
+
   useEffect(() => {
     document.title = "AniGurt";
   }, []);
 
   if (loading) return <Spiner />;
   if (error) return <p>Ошибка: {error.message}</p>;
-
   if (!data || !data.animes) return <p>Нет данных</p>;
 
   return (
-    <div className="h-screen w-full">
-      <Swiper
-        modules={[Autoplay, Navigation, Pagination]}
-        spaceBetween={10}
-        slidesPerView={1}
-        loop={true}
-        autoplay={{ delay: 10000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        navigation
-        className="h-[70%] w-full"
-        style={
-          {
-            "--swiper-theme-color": "#e82c4c", // Изменение цвета слайдера
-          } as React.CSSProperties
-        }
-      >
-        {data.animes.slice(0, 6).map((anime: Anime) => {
-          const animeRating = translateRating(anime.rating);
-          const statusRu = translateStatus(anime.status);
-          return (
-            <SwiperSlide key={anime.id}>
-              <div className="relative w-full h-full">
-                {/* Затемнение */}
-                <div className="absolute inset-0 bg-black/50"></div>
-                <Link to={`/anime/${anime.id}`}>
-                  <img
-                    src={
-                      anime.screenshots[0]?.originalUrl ||
-                      anime.poster.originalUrl
-                    }
-                    alt={anime.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-10 left-5 sm:left-10 text-white ">
-                    <h2 className="text-xl sm:text-2xl md:text-4xl font-bold duration-300  transition ease-in-out  hover:text-[#e82c4c]">
-                      {anime.russian || anime.name}
-                    </h2>
-                    <div className="flex mt-5 gap-5 divide-x divide-gray-100 *:pr-5 text-white">
-                      <p>⭐ {anime.score}</p>
-                      <p>{anime.airedOn?.year}</p>
-                      <p>{animeRating}</p>
-                      <p>{statusRu}</p>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow">
+        <Swiper
+          modules={[Autoplay, Navigation, Pagination]}
+          spaceBetween={10}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{ delay: 10000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          navigation
+          className="h-[70vh] w-full"
+          style={
+            {
+              "--swiper-theme-color": "#e82c4c",
+            } as React.CSSProperties
+          }
+        >
+          {data.animes.slice(0, 6).map((anime: Anime) => {
+            const animeRating = translateRating(anime.rating);
+            const statusRu = translateStatus(anime.status);
+            return (
+              <SwiperSlide key={anime.id}>
+                <div className="relative w-full h-full">
+                  <div className="absolute inset-0 bg-black/50"></div>
+                  <Link to={`/anime/${anime.id}`}>
+                    <img
+                      src={
+                        anime.screenshots[0]?.originalUrl ||
+                        anime.poster.originalUrl
+                      }
+                      alt={anime.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute bottom-10 left-5 sm:left-10 text-white">
+                      <h2 className="text-xl sm:text-2xl md:text-4xl font-bold duration-300 transition ease-in-out hover:text-[#e82c4c]">
+                        {anime.russian || anime.name}
+                      </h2>
+                      <div className="flex mt-5 gap-5 divide-x divide-gray-100 *:pr-5 text-white">
+                        <p>⭐ {anime.score}</p>
+                        <p>{anime.airedOn?.year}</p>
+                        <p>{animeRating}</p>
+                        <p>{statusRu}</p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+                  </Link>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
 
-      <div className="mt-5 p-5">
-        <h2 className="text-2xl text-amber-50 mb-5">Аниме прошлого сезона</h2>
-        <AnimeList
-          animeList={ex_season.data?.animes || []}
-          loading={ex_season.loading}
-        />
-      </div>
-      <div className="mt-5 p-5">
-        <h2 className="text-2xl text-amber-50 mb-5">
-          Аниме позапрошлого сезона
-        </h2>
-        <AnimeList
-          animeList={exex_season.data?.animes || []}
-          loading={exex_season.loading}
-        />
-      </div>
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-10">
+            <h2 className="text-2xl text-amber-50 mb-5">
+              Аниме прошлого сезона
+            </h2>
+            <AnimeList
+              animeList={ex_season.data?.animes || []}
+              loading={ex_season.loading}
+            />
+          </div>
 
-      <div className="mt-5 p-5">
-        <h2 className="text-2xl text-amber-50 mb-5">Рекомендация админа</h2>
-        <AnimeList
-          animeList={adminAnime.data?.animes || []}
-          loading={adminAnime.loading}
-        />
-      </div>
-      <div className="mt-5 p-5">
-        <h2 className="text-2xl text-amber-50 mb-5">Лучшие аниме фильмы</h2>
-        <AnimeList
-          animeList={movieAnime.data?.animes || []}
-          loading={movieAnime.loading}
-        />
+          <div className="mb-10">
+            <h2 className="text-2xl text-amber-50 mb-5">
+              Аниме позапрошлого сезона
+            </h2>
+            <AnimeList
+              animeList={exex_season.data?.animes || []}
+              loading={exex_season.loading}
+            />
+          </div>
+
+          <div className="mb-10">
+            <h2 className="text-2xl text-amber-50 mb-5">Рекомендация админа</h2>
+            <AnimeList
+              animeList={adminAnime.data?.animes || []}
+              loading={adminAnime.loading}
+            />
+          </div>
+
+          <div className="mb-10">
+            <h2 className="text-2xl text-amber-50 mb-5">Лучшие аниме фильмы</h2>
+            <AnimeList
+              animeList={movieAnime.data?.animes || []}
+              loading={movieAnime.loading}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

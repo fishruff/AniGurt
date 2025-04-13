@@ -70,7 +70,7 @@ const ProfilePage = () => {
           />
           <div className="flex-col">
             <h1 className="text-3xl lg:text-4xl font-bold">{user.name}</h1>
-            <div className="flex mt-5 gap-5 divide-x divide-gray-100 *:pr-5 text-white">
+            <div className="flex-col lg:flex mt-5 gap-5 lg:divide-x divide-gray-100 *:pr-5 text-white ">
               <p>муж.</p>
               <p>21yo</p>
               <a

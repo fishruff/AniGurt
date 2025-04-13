@@ -18,9 +18,9 @@ import Footer from "../components/Footer";
 
 function MainLayouts() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="">
+      <div className="flex-grow">
         <ApolloProvider client={client}>
           <Routes>
             <Route path="/" element={<Home />} />
