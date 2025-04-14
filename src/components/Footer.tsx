@@ -2,8 +2,8 @@ function Footer() {
   const date = new Date();
   const year = date.getFullYear();
   return (
-    <div className="w-full items-center  lg:mb-0 mb-16 bg-[#171717] text-amber-50 p-10 flex justify-center gap-10">
-      <a href="t.me/fish_ruff" target="_blank">
+    <div className="w-full items-center bg-[#171717] text-amber-50 px-10 pb-20 lg:p-10 flex justify-center gap-10">
+      <a href="https://t.me/anigurt" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
@@ -32,7 +32,9 @@ function Footer() {
           </g>
         </svg>
       </a>
-      <p>{year} | fish_ruff | (o･ω･o)</p>
+      <p className="flex">
+        {year} | fish_ruff <span className="hidden lg:block">| (o･ω･o)</span>
+      </p>
       <a href="https://github.com/fishruff/AniGurt" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -113,7 +113,7 @@ const AnimePage = () => {
                   dangerouslySetInnerHTML={{ __html: newDesc || "" }}
                   className="mt-2"
                 ></p>
-                <div className="mt-4">
+                <div className="mt-4 flex overflow-hidden">
                   <h3 className="text-xl">Жанры:</h3>
                   <ul className="flex flex-col lg:flex-row gap-5">
                     {anime.genres.map((genre) => (
@@ -123,6 +123,14 @@ const AnimePage = () => {
                       >
                         {genre.russian}
                       </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-4 flex">
+                  <h3 className="text-xl">Озвучка:</h3>
+                  <ul className="flex flex-col lg:flex-row gap-5">
+                    {anime.fandubbers.map((dub) => (
+                      <li className="bg-gray-800 p-2 rounded-md ">{dub}</li>
                     ))}
                   </ul>
                 </div>
