@@ -577,7 +577,7 @@ export const GET_ADMIN_ANIME = gql`
 
 export const GET_NEW_RANKED_ANIME = gql`
   query ($season: SeasonString!) {
-    animes(season: $season, limit: 20, order: ranked) {
+    animes(season: $season, limit: 20, order: ranked, excludeIds: "53447") {
       id
       malId
       name
