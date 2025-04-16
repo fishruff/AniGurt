@@ -1,5 +1,5 @@
 const StatLine = ({ stats }: { stats: Record<string, number>[] }) => {
-  const maxStat = Math.max(...stats.map((stat) => Object.values(stat)[0]));
+  const maxStat = Math.max(...stats.map((stat) => Object.values(stat)[1]));
 
   const colors = [
     "bg-purple-500",
@@ -12,7 +12,7 @@ const StatLine = ({ stats }: { stats: Record<string, number>[] }) => {
   return (
     <div className="flex w-full h-8 rounded-md overflow-hidden border border-gray-700">
       {stats.map((stat, index) => {
-        const key = Object.keys(stat)[0]; // Название параметра
+        const key = Object.keys(stat)[1]; // Название параметра
         const value = stat[key]; // Значение
         const percentage = (value / maxStat) * 100;
 

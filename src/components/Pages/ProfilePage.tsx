@@ -55,8 +55,6 @@ const ProfilePage = () => {
     { drope: 1 },
   ];
 
-  console.log(user);
-
   return user ? (
     <div className="relative w-full min-h-screen flex flex-col lg:flex-row text-white p-6 lg:p-10">
       {/* Левая часть с информацией */}

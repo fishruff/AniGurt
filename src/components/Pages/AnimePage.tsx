@@ -13,6 +13,7 @@ import {
 } from "../utils/translateInfo";
 import SimilarAnime from "../SimilarAnime";
 import AnimeFranchise from "../AnimeFranchise";
+import StatLine from "../StatLine";
 
 const AnimePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -59,6 +60,19 @@ const AnimePage = () => {
   const maxStatusStat = anime.statusesStats.reduce((acc, curr) =>
     acc.count > curr.count ? acc : curr,
   );
+
+  const stats = anime.statusesStats.map(({ status, count }) => ({
+    status,
+    count,
+  }));
+
+  const totalStats = stats.reduce((acc, stat) => acc + stat.count, 0);
+  const planned = stats.find((s) => s.status === "planned")?.count || 0;
+  const completed = stats.find((s) => s.status === "completed")?.count || 0;
+  const watching = stats.find((s) => s.status === "watching")?.count || 0;
+  const onHold = stats.find((s) => s.status === "on_hold")?.count || 0;
+  const dropped = stats.find((s) => s.status === "dropped")?.count || 0;
+  console.log(stats);
 
   return (
     <div className="p-10  text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
@@ -131,7 +145,6 @@ const AnimePage = () => {
                     <summary className="flex items-center gap-2 cursor-pointer list-none">
                       <h3 className="text-xl">Озвучка:</h3>
                       <div className="flex flex-wrap gap-2">
-                        {/* Показываем первые 3 озвучки как чипсы */}
                         {anime.fandubbers.slice(0, 3).map((dub, index) => (
                           <span
                             key={index}
@@ -140,7 +153,6 @@ const AnimePage = () => {
                             {dub}
                           </span>
                         ))}
-                        {/* Кнопка "+N" (если есть скрытые варианты) */}
                         {anime.fandubbers.length > 3 && (
                           <span className="bg-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-600">
                             +{anime.fandubbers.length - 3}
@@ -148,7 +160,7 @@ const AnimePage = () => {
                         )}
                       </div>
                     </summary>
-                    {/* Полный список в выпадающем меню */}
+
                     <ul className="mt-2 pl-6 space-y-2 max-h-60 overflow-y-auto">
                       {anime.fandubbers.map((dub, index) => (
                         <li
@@ -224,6 +236,37 @@ const AnimePage = () => {
           </h1>
           <Player urlPlayer={urlPlayer} />
         </div>
+        <div className="mt-10">
+          <h1 className="text-xl">В списках у людей</h1>
+          <div className="flex justify-between *:text-center *:flex-col *:gap-5 p-5">
+            <span>
+              <p className="bg-gray-800 p-2 rounded-md">Всего</p>
+              <p className="font-bold my-2">{totalStats}</p>
+            </span>
+            <span>
+              <p className="bg-purple-500 p-2 rounded-md">В планах</p>
+              <p className="font-bold my-2">{planned}</p>
+            </span>
+            <span>
+              <p className="bg-blue-500 p-2 rounded-md">Посмотрел</p>
+              <p className="font-bold my-2">{completed}</p>
+            </span>
+            <span>
+              <p className="bg-green-500 p-2 rounded-md">Смотрю</p>
+              <p className="font-bold my-2">{watching}</p>
+            </span>
+            <span>
+              <p className="bg-yellow-500 p-2 rounded-md">Отложил</p>
+              <p className="font-bold my-2">{onHold}</p>
+            </span>
+            <span>
+              <p className="bg-red-500 p-2 rounded-md">Бросил</p>
+              <p className="font-bold my-2">{dropped}</p>
+            </span>
+          </div>
+          <StatLine stats={stats} />
+        </div>
+        {/* similar */}
         <div className="">
           <SimilarAnime animeId={anime.id} />
         </div>
@@ -236,10 +279,10 @@ const AnimePage = () => {
                 if (video.kind === "op" || video.kind === "ed") {
                   return (
                     <a
-                      key={video.url} // Добавлен key для React
+                      key={video.url}
                       href={video.url}
                       target="_blank"
-                      rel="noopener noreferrer" // Добавлено для безопасности
+                      rel="noopener noreferrer"
                       className="flex gap-5 mt-3 items-center p-1 duration-300 ease-in-out hover:text-[#56a6f7]"
                     >
                       <div className="flex gap-1 bg-gray-950 rounded-md items-center p-1">
@@ -252,9 +295,9 @@ const AnimePage = () => {
                           <path
                             d="M6 12.4999V4.73683C6 4.41581 6 4.25529 6.0584 4.12511C6.10988 4.01035 6.19278 3.9125 6.29751 3.84285C6.41632 3.76384 6.57465 3.73745 6.89131 3.68468L12.758 2.7069C13.1853 2.63568 13.3989 2.60007 13.5655 2.66192C13.7116 2.71619 13.8341 2.81995 13.9116 2.95516C14 3.10924 14 3.32584 14 3.75905V11.1666M6 12.4999C6 13.6045 5.10457 14.4999 4 14.4999C2.89543 14.4999 2 13.6045 2 12.4999C2 11.3953 2.89543 10.4999 4 10.4999C5.10457 10.4999 6 11.3953 6 12.4999ZM14 11.1666C14 12.2711 13.1046 13.1666 12 13.1666C10.8954 13.1666 10 12.2711 10 11.1666C10 10.062 10.8954 9.16656 12 9.16656C13.1046 9.16656 14 10.062 14 11.1666Z"
                             stroke="white"
-                            strokeWidth="2" // Исправлено на camelCase
-                            strokeLinecap="round" // Исправлено на camelCase
-                            strokeLinejoin="round" // Исправлено на camelCase
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           ></path>
                         </svg>
                         <p className="capitalize">{video.kind}</p>{" "}
@@ -264,13 +307,13 @@ const AnimePage = () => {
                     </a>
                   );
                 }
-                return null; // Явный возврат null для других типов видео
+                return null;
               })}
             </div>
           ) : (
             <p className="mt-3 ml-5 text-gray-400">
               Нет информации о музыкальных темах
-            </p> // Улучшенное сообщение
+            </p>
           )}
         </div>
       </div>
