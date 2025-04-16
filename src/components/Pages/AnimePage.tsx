@@ -126,13 +126,40 @@ const AnimePage = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="mt-4 flex">
-                  <h3 className="text-xl">Озвучка:</h3>
-                  <ul className="flex flex-col lg:flex-row gap-5">
-                    {anime.fandubbers.map((dub) => (
-                      <li className="bg-gray-800 p-2 rounded-md ">{dub}</li>
-                    ))}
-                  </ul>
+                <div className="mt-4">
+                  <details className="group">
+                    <summary className="flex items-center gap-2 cursor-pointer list-none">
+                      <h3 className="text-xl">Озвучка:</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {/* Показываем первые 3 озвучки как чипсы */}
+                        {anime.fandubbers.slice(0, 3).map((dub, index) => (
+                          <span
+                            key={index}
+                            className="bg-gray-800 px-3 py-1 rounded-md text-sm"
+                          >
+                            {dub}
+                          </span>
+                        ))}
+                        {/* Кнопка "+N" (если есть скрытые варианты) */}
+                        {anime.fandubbers.length > 3 && (
+                          <span className="bg-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-600">
+                            +{anime.fandubbers.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    </summary>
+                    {/* Полный список в выпадающем меню */}
+                    <ul className="mt-2 pl-6 space-y-2 max-h-60 overflow-y-auto">
+                      {anime.fandubbers.map((dub, index) => (
+                        <li
+                          key={index}
+                          className="bg-gray-800 p-2 rounded-md hover:bg-gray-700"
+                        >
+                          {dub}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
                 </div>
               </div>
             </div>
