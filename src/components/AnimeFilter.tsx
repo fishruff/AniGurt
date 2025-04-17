@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useEffect } from "react";
 
 interface AnimeFilterProps {
   onFilterChange: (filters: Record<string, string>) => void;
+  initialValues?: Record<string, string>;
 }
 
 const genres = [
@@ -224,14 +226,25 @@ const seasons = [
     value: "ancient",
   },
 ];
-const AnimeFilter: React.FC<AnimeFilterProps> = ({ onFilterChange }) => {
+const AnimeFilter: React.FC<AnimeFilterProps> = ({
+  onFilterChange,
+  initialValues = {},
+}) => {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string>
   >({
     season: "",
     genre: "",
     status: "",
+    ...initialValues,
   });
+
+  useEffect(() => {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      ...initialValues,
+    }));
+  }, [initialValues]);
 
   const handleChange = (category: string, value: string) => {
     const updatedFilters = { ...selectedFilters, [category]: value || "" };

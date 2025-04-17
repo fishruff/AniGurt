@@ -1,5 +1,3 @@
-"use client";
-
 import { useQuery } from "@apollo/client";
 import { GET_TOP_ANIME, GET_FILTERED_ANIME } from "../apolloClient";
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -7,12 +5,17 @@ import AnimeCard from "../AnimeCard";
 import { Anime } from "../../types/Anime";
 import AnimeFilter from "../AnimeFilter";
 import Spiner from "../Spiner";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function TopAnimeList() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
   const [filters, setFilters] = useState<Record<string, string>>({
-    season: "",
-    genre: "",
-    status: "",
+    season: searchParams.get("season") || "",
+    genre: searchParams.get("genre") || "",
+    status: searchParams.get("status") || "",
   });
 
   const [animeList, setAnimeList] = useState<Anime[]>([]);
@@ -22,6 +25,16 @@ export default function TopAnimeList() {
   useEffect(() => {
     document.title = "Аниме | AniGurt";
   }, []);
+
+  // Обновление URL при изменении фильтров
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (filters.season) params.set("season", filters.season);
+    if (filters.genre) params.set("genre", filters.genre);
+    if (filters.status) params.set("status", filters.status);
+
+    navigate(`/animes?${params.toString()}`, { replace: true });
+  }, [filters, navigate]);
 
   const { loading, error, data } = useQuery(
     filters.season || filters.genre || filters.status
@@ -64,11 +77,18 @@ export default function TopAnimeList() {
     [loading],
   );
 
+  const handleFilterChange = (newFilters: Record<string, string>) => {
+    setFilters(newFilters);
+  };
+
   if (error) return <p>Ошибка: {error.message}</p>;
 
   return (
     <div className="flex flex-col lg:flex-row-reverse gap-20 p-10 mt-20">
-      <AnimeFilter onFilterChange={setFilters} />
+      <AnimeFilter
+        onFilterChange={handleFilterChange}
+        initialValues={filters}
+      />
 
       <ul className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {animeList.map((anime, index) => (
