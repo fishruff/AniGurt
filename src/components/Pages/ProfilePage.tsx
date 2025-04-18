@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord, logout } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import Spiner from "../Spiner";
-import StatLine from "../StatLine";
+// import StatLine from "../StatLine";
 
 const ProfilePage = () => {
   const [user, setUser] = useState<UserRecord | null>(null);
@@ -47,13 +47,13 @@ const ProfilePage = () => {
 
   if (isLoading) return <Spiner />;
 
-  const stats: Record<string, number>[] = [
-    { plane: 13 },
-    { watch: 4 },
-    { complete: 24 },
-    { hold: 4 },
-    { drope: 1 },
-  ];
+  // const stats: Record<string, number>[] = [
+  //   { plane: 13 },
+  //   { watch: 4 },
+  //   { complete: 24 },
+  //   { hold: 4 },
+  //   { drope: 1 },
+  // ];
 
   return user ? (
     <div className="relative w-full min-h-screen flex flex-col lg:flex-row text-white p-6 lg:p-10">
@@ -91,7 +91,7 @@ const ProfilePage = () => {
         <div className="bg-gray-800 p-10 rounded-xl">
           <div className="">
             <h1 className="mb-5">Список аниме</h1>
-            <StatLine stats={stats} />
+            {/* <StatLine stats={stats} /> */}
           </div>
           <div className="flex justify-between gap-2 *:hover:text-[#e82c4c] mt-10">
             <a href="#">Запланировано </a>
