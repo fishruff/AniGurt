@@ -61,10 +61,7 @@ const AnimePage = () => {
     acc.count > curr.count ? acc : curr,
   );
 
-  const stats = anime.statusesStats.map(({ status, count }) => ({
-    status,
-    count,
-  }));
+  const stats = anime.statusesStats;
 
   const totalStats = stats.reduce((acc, stat) => acc + stat.count, 0);
   const planned = stats.find((s) => s.status === "planned")?.count || 0;
@@ -74,6 +71,7 @@ const AnimePage = () => {
   const dropped = stats.find((s) => s.status === "dropped")?.count || 0;
 
   console.log(stats);
+  console.log(anime.statusesStats);
 
   return (
     <div className="p-10  text-[#f4f4f4] relative w-full min-h-screen flex justify-center items-center">
