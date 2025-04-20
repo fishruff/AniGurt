@@ -72,6 +72,7 @@ const AnimePage = () => {
   const watching = stats.find((s) => s.status === "watching")?.count || 0;
   const onHold = stats.find((s) => s.status === "on_hold")?.count || 0;
   const dropped = stats.find((s) => s.status === "dropped")?.count || 0;
+
   console.log(stats);
 
   return (
