@@ -1,5 +1,10 @@
-const StatLine = ({ stats }: { stats: Record<string, number>[] }) => {
-  const maxStat = Math.max(...stats.map((stat) => Object.values(stat)[1]));
+interface Stat {
+  status: string;
+  count: number;
+}
+
+const StatLine = ({ stats }: { stats: Stat[] }) => {
+  const maxStat = Math.max(...stats.map((stat) => stat.count));
 
   const colors = [
     "bg-purple-500",
@@ -12,17 +17,16 @@ const StatLine = ({ stats }: { stats: Record<string, number>[] }) => {
   return (
     <div className="flex w-full h-8 rounded-md overflow-hidden border border-gray-700">
       {stats.map((stat, index) => {
-        const key = Object.keys(stat)[1]; // Название параметра
-        const value = stat[key]; // Значение
-        const percentage = (value / maxStat) * 100;
+        const percentage = (stat.count / maxStat) * 100;
 
         return (
           <div
-            key={key}
-            className={`flex hover:outline-1 hover:outline-amber-50  transition-all duration-30 items-center justify-center text-white font-bold ${colors[index]}`}
+            key={stat.status}
+            className={`flex items-center justify-center text-white font-bold hover:outline-1 hover:outline-amber-50 transition-all duration-300 ${colors[index]}`}
             style={{ width: `${percentage}%`, minWidth: "40px" }}
+            title={stat.status}
           >
-            {value}
+            {stat.count}
           </div>
         );
       })}

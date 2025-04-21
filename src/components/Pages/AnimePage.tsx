@@ -237,35 +237,40 @@ const AnimePage = () => {
           <Player urlPlayer={urlPlayer} />
         </div>
         <div className="mt-10">
-          <h1 className="text-xl">В списках у людей</h1>
-          <div className="flex justify-between *:text-center *:flex-col *:gap-5 p-5">
-            <span>
-              <p className="bg-gray-800 p-2 rounded-md">Всего</p>
+          <h1 className="text-xl mb-4">В списках у людей</h1>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center px-4 mb-4">
+            <div>
+              <p className="bg-gray-800 p-2 rounded-md text-white">Всего</p>
               <p className="font-bold my-2">{totalStats}</p>
-            </span>
-            <span>
-              <p className="bg-purple-500 p-2 rounded-md">В планах</p>
+            </div>
+            <div>
+              <p className="bg-purple-500 p-2 rounded-md text-white">
+                В планах
+              </p>
               <p className="font-bold my-2">{planned}</p>
-            </span>
-            <span>
-              <p className="bg-blue-500 p-2 rounded-md">Посмотрел</p>
+            </div>
+            <div>
+              <p className="bg-blue-500 p-2 rounded-md text-white">Посмотрел</p>
               <p className="font-bold my-2">{completed}</p>
-            </span>
-            <span>
-              <p className="bg-green-500 p-2 rounded-md">Смотрю</p>
+            </div>
+            <div>
+              <p className="bg-green-500 p-2 rounded-md text-white">Смотрю</p>
               <p className="font-bold my-2">{watching}</p>
-            </span>
-            <span>
-              <p className="bg-yellow-500 p-2 rounded-md">Отложил</p>
+            </div>
+            <div>
+              <p className="bg-yellow-500 p-2 rounded-md text-white">Отложил</p>
               <p className="font-bold my-2">{onHold}</p>
-            </span>
-            <span>
-              <p className="bg-red-500 p-2 rounded-md">Бросил</p>
+            </div>
+            <div>
+              <p className="bg-red-500 p-2 rounded-md text-white">Бросил</p>
               <p className="font-bold my-2">{dropped}</p>
-            </span>
+            </div>
           </div>
+
           <StatLine stats={stats} />
         </div>
+
         {/* similar */}
         <div className="">
           <SimilarAnime animeId={anime.id} />
