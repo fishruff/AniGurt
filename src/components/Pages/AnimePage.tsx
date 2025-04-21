@@ -4,7 +4,6 @@ import { GET_ANIME_BY_ID } from "../apolloClient";
 import Spiner from "../Spiner";
 import Player from "../Player";
 import { useEffect } from "react";
-// import RelatedAnimeList from "../RelatedAnimeList";
 import { Anime } from "../../types/Anime";
 import {
   translateKind,
@@ -55,9 +54,6 @@ const AnimePage = () => {
   const statusRu = translateStatus(anime.status);
 
   const maxScoreStat = anime.scoresStats.reduce((acc, curr) =>
-    acc.count > curr.count ? acc : curr,
-  );
-  const maxStatusStat = anime.statusesStats.reduce((acc, curr) =>
     acc.count > curr.count ? acc : curr,
   );
 
@@ -198,32 +194,8 @@ const AnimePage = () => {
                 );
               })}
             </div>
-
-            <h1 className="mt-10 bg-gray-800 p-2 rounded-md w-60">
-              В списках у пользователей:
-            </h1>
-            <div className="flex flex-col ">
-              {anime.statusesStats.slice(0, 5).map((score) => {
-                const percentage = (score.count / maxStatusStat.count) * 100;
-                return (
-                  <div className="flex text-center items-baseline gap-2 justify-between">
-                    <div
-                      key={score.status}
-                      className=" p-1 bg-blue-500 rounded transition-all my-1"
-                      style={{ width: `${percentage}%` }}
-                    >
-                      {score.count}
-                    </div>
-                    {score.status}
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
-        {/* <div className="">
-          <RelatedAnimeList animeId={anime.id} />
-        </div> */}
         <div className="">
           <AnimeFranchise animeId={anime.id} />
         </div>
