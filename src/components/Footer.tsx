@@ -2,7 +2,7 @@ function Footer() {
   const date = new Date();
   const year = date.getFullYear();
   return (
-    <div className="w-full bg-[#171717] text-amber-50 px-10 py-6 lg:px-10 lg:py-6 flex justify-center gap-10 mt-auto">
+    <div className="w-full bg-[#171717] text-amber-50 px-10 py-20 pt-6 lg:px-10 lg:py-6 flex justify-center gap-10 mt-auto">
       <a href="https://t.me/anigurt" target="_blank" rel="noopener noreferrer">
         <svg
           xmlns="http://www.w3.org/2000/svg"

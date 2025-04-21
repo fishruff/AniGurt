@@ -122,7 +122,7 @@ const AnimePage = () => {
                   dangerouslySetInnerHTML={{ __html: newDesc || "" }}
                   className="mt-2"
                 ></p>
-                <div className="mt-4 flex overflow-hidden">
+                <div className="mt-4 gap-2 flex items-start lg:items-center overflow-hidden">
                   <h3 className="text-xl">Жанры:</h3>
                   <ul className="flex flex-col lg:flex-row gap-5">
                     {anime.genres.map((genre) => (
@@ -137,7 +137,7 @@ const AnimePage = () => {
                 </div>
                 <div className="mt-4">
                   <details className="group">
-                    <summary className="flex items-center gap-2 cursor-pointer list-none">
+                    <summary className="flex items-start lg:items-center gap-2 cursor-pointer list-none">
                       <h3 className="text-xl">Озвучка:</h3>
                       <div className="flex flex-wrap gap-2">
                         {anime.fandubbers.slice(0, 3).map((dub, index) => (
