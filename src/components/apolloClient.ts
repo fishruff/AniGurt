@@ -26,8 +26,15 @@ export const GET_FILTERED_ANIME = gql`
     $season: SeasonString
     $genre: String
     $status: AnimeStatusString
+    $kind: AnimeKindString
   ) {
-    animes(season: $season, genre: $genre, limit: 50, status: $status) {
+    animes(
+      season: $season
+      genre: $genre
+      limit: 50
+      status: $status
+      kind: $kind
+    ) {
       id
       malId
       name

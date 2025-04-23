@@ -236,6 +236,7 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({
     season: "",
     genre: "",
     status: "",
+    kind: "",
     ...initialValues,
   });
 
@@ -285,6 +286,26 @@ const AnimeFilter: React.FC<AnimeFilterProps> = ({
           <option value="released">Вышло</option>
           <option value="ongoing">Выходит</option>
           <option value="anons">Анонс</option>
+        </select>
+      </div>
+      {/* Тип */}
+      <div className="mb-4">
+        <h3 className="font-bold mb-1">Тип</h3>
+        <select
+          className="w-full p-2 bg-gray-700 rounded"
+          value={selectedFilters.kind}
+          onChange={(e) => handleChange("kind", e.target.value)}
+        >
+          <option value="">Все</option>
+          <option value="tv">Сериал</option>
+          <option value="movie">Фильм</option>
+          <option value="ova">OVA</option>
+          <option value="ona">ONA</option>
+          <option value="special">Спешл</option>
+          <option value="tv_special">TV-Спешл</option>
+          <option value="music">Музыкальное</option>
+          <option value="pv">Промо-видео (PV)</option>
+          <option value="cm">Реклама (CM)</option>
         </select>
       </div>
 
