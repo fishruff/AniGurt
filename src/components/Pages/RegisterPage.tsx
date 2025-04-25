@@ -22,7 +22,7 @@ const RegistrationPage = () => {
     try {
       await register(email, password, username);
       alert("Регистрация успешна!");
-      navigate("/me");
+      navigate(`/user/${username}`);
     } catch (error) {
       alert("Ошибка: " + error);
     }

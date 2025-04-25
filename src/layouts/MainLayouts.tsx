@@ -29,7 +29,7 @@ function MainLayouts() {
             <Route path="/search" element={<SearchAnime />} />
             <Route path="/mangas" element={<Manga />} />
             <Route path="/manga/:id" element={<MangaPage />} />
-            <Route path="/me" element={<ProfilePage />} />
+            <Route path="/user/:name" element={<ProfilePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegestrationPage />} />
             <Route path="/random" element={<RandomAnime />} />

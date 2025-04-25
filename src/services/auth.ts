@@ -24,8 +24,8 @@ export const register = async (
     const newUser = await pb.collection("users").create({
       email,
       password,
-      passwordConfirm: password, // Обязательно для регистрации
-      name: username, // Проверь, что поле `name` есть в PocketBase
+      passwordConfirm: password,
+      name: username,
     });
 
     return newUser;
@@ -47,6 +47,6 @@ export const logout = () => {
 
 // Получение текущего пользователя
 export const getCurrentUser = async (): Promise<UserRecord | null> => {
-  if (!pb.authStore.isValid || !pb.authStore.model) return null;
-  return pb.authStore.model as unknown as UserRecord;
+  if (!pb.authStore.isValid || !pb.authStore.record) return null;
+  return pb.authStore.record as unknown as UserRecord;
 };

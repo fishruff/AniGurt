@@ -11,7 +11,8 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate("/me");
+
+      navigate(`/`);
       window.location.reload();
     } catch (error) {
       alert("Ошибка: " + error);
@@ -78,7 +79,10 @@ const LoginPage = () => {
           <div className="text-center mt-6 mb-20">
             <h2>
               Еще нет аккаунта?{" "}
-              <Link to="/register" className="text-[#e82c4c] font-bold hover:underline">
+              <Link
+                to="/register"
+                className="text-[#e82c4c] font-bold hover:underline"
+              >
                 Зарегистрируйся!
               </Link>
             </h2>

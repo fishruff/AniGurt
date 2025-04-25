@@ -97,7 +97,7 @@ function Header() {
 
           {user ? (
             <Link
-              to="/me"
+              to={`/user/${user.name}`}
               className="flex items-center gap-2 hover:text-[#e82c4c] transition-colors duration-300"
             >
               {user.avatar ? (
