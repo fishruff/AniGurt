@@ -13,6 +13,7 @@ import {
 import SimilarAnime from "../SimilarAnime";
 import AnimeFranchise from "../AnimeFranchise";
 import StatLine from "../StatLine";
+import AnimeNotfound from "../AnimeNotFound";
 
 const AnimePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,22 +33,12 @@ const AnimePage = () => {
 
   if (loading) return <Spiner />;
   if (error) return <p className="text-red-500">Ошибка: {error.message}</p>;
-  if (!anime)
-    return (
-      <div className="text-2xl text-amber-50 absolute top-[50%] inset-x-0 mx-auto text-center">
-        <p className="text-xl text-white ">Аниме не найдено :( </p>
-        <a href="/" className="text-blue-500">
-          вернуться на главную
-        </a>
-      </div>
-    );
+  if (!anime) return <AnimeNotfound />;
 
   const newDesc =
     anime.description !== null ? anime.descriptionHtml : "Описания пока нет :(";
-  const urlPlayer =
-    "//kodik.cc/find-player?shikimoriID=" +
-    anime.id +
-    "&types=anime,anime-serial&episode=1";
+
+  const urlPlayer = `//kodik.cc/find-player?shikimoriID=${anime.id}&types=anime,anime-serial&episode=1`;
 
   const animeKind = translateKind(anime.kind);
   const animeRating = translateRating(anime.rating);
