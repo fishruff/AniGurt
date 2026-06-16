@@ -11,7 +11,7 @@ export const POCKETBASE_URL =
 
 // Базовый URL Shikimori (GraphQL + REST).
 export const SHIKIMORI_URL =
-  env.VITE_SHIKIMORI_URL ?? "https://shikimori.one";
+  env.VITE_SHIKIMORI_URL ?? "https://shikimori.io";
 
 // Контактный email для заголовка User-Agent (требование Shikimori API).
 export const CONTACT_EMAIL =
