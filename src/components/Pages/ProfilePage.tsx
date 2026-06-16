@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord, logout } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import Spiner from "../Spiner";
+import { pbFileUrl } from "../../config";
 // import StatLine from "../StatLine";
 
 const ProfilePage = () => {
@@ -62,7 +63,7 @@ const ProfilePage = () => {
         <div className="flex gap-5 items-center">
           <img
             className="w-40 h-40 rounded-xl  object-cover"
-            src={`https://anigurt-backend.onrender.com/api/files/_pb_users_auth_/${user.id}/${user.avatar}`}
+            src={pbFileUrl("_pb_users_auth_", user.id, user.avatar)}
             alt={user.name}
             loading="lazy"
           />

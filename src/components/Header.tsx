@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCurrentUser, UserRecord } from "../services/auth";
+import { pbFileUrl } from "../config";
 
 function Header() {
   const [user, setUser] = useState<UserRecord | null>(null);
@@ -103,7 +104,7 @@ function Header() {
               {user.avatar ? (
                 <img
                   className="w-8 h-8 rounded-full object-cover"
-                  src={`https://anigurt-backend.onrender.com/api/files/_pb_users_auth_/${user.id}/${user.avatar}`}
+                  src={pbFileUrl("_pb_users_auth_", user.id, user.avatar)}
                   alt={user.name}
                   loading="lazy"
                 />

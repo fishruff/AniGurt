@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { SHIKIMORI_URL } from "../config";
 
 interface FranchiseNode {
   id: number;
@@ -38,7 +39,7 @@ const AnimeFranchise = ({ animeId }: { animeId: number }) => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://shikimori.one/api/animes/${animeId}/franchise`,
+          `${SHIKIMORI_URL}/api/animes/${animeId}/franchise`,
         );
 
         if (!response.ok) {
@@ -87,7 +88,7 @@ const AnimeFranchise = ({ animeId }: { animeId: number }) => {
                   loading="lazy"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
-                      "https://shikimori.one/assets/globals/missing_x96.jpg";
+                      `${SHIKIMORI_URL}/assets/globals/missing_x96.jpg`;
                   }}
                 />
               </div>

@@ -1,9 +1,10 @@
 import { ApolloClient, InMemoryCache, HttpLink, gql } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { SHIKIMORI_GRAPHQL_URL, USER_AGENT } from "../config";
 
 // Настройка HTTP-ссылки
 const httpLink = new HttpLink({
-  uri: "https://shikimori.one/api/graphql", // Укажите ваш GraphQL-эндпоинт
+  uri: SHIKIMORI_GRAPHQL_URL,
 });
 
 // Добавление заголовков
@@ -11,7 +12,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "User-Agent": "AniGurt/1.0 (arsershoff@gmail.com)", // Укажите ваше приложение и email
+      "User-Agent": USER_AGENT, // приложение и контактный email (требование Shikimori)
     },
   };
 });

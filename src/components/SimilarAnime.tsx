@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ANIME_BY_ID } from "./apolloClient";
 import AnimeList from "./AnimeList";
+import { SHIKIMORI_URL } from "../config";
 
 interface SimilarAnime {
   id: number;
@@ -16,7 +17,7 @@ const SimilarAnime = ({ animeId }: { animeId: number }) => {
     setLoading(true);
     setError(null);
 
-    fetch(`https://shikimori.one/api/animes/${animeId}/similar`)
+    fetch(`${SHIKIMORI_URL}/api/animes/${animeId}/similar`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Ошибка загрузки данных");

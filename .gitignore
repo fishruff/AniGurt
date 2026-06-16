@@ -13,6 +13,9 @@ dist-ssr
 *.local
 .env
 
+# Локальные заметки и конфиги по хостингу — не пушим
+deploy/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

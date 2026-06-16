@@ -1,6 +1,7 @@
 import PocketBase from "pocketbase";
+import { POCKETBASE_URL } from "../config";
 
-const pb = new PocketBase("https://anigurt-backend.onrender.com");
+const pb = new PocketBase(POCKETBASE_URL);
 
 // Описание типов
 export type UserRecord = {
