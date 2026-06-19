@@ -26,3 +26,7 @@ deploy/
 *.njsproj
 *.sln
 *.sw?
+
+# Выхлоп скрипта-качалки каталога
+animes.ndjson
+progress.json
