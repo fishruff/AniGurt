@@ -20,6 +20,11 @@ export const CONTACT_EMAIL =
 export const SHIKIMORI_GRAPHQL_URL = `${SHIKIMORI_URL}/api/graphql`;
 export const USER_AGENT = `AniGurt/1.0 (${CONTACT_EMAIL})`;
 
+// Kodik: домен плеера (виджет find-player). Kodik периодически меняет домены
+// (блокировки РКН и т.п.), поэтому держим его в env — смена = одна строка.
+export const KODIK_PLAYER_URL =
+  env.VITE_KODIK_PLAYER_URL ?? "https://kodikplayer.com";
+
 // Ссылка на файл пользователя в PocketBase (например, аватар).
 export const pbFileUrl = (
   collectionId: string,

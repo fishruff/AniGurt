@@ -5,6 +5,7 @@ import Spiner from "../Spiner";
 import Player from "../Player";
 import { useEffect } from "react";
 import { Anime } from "../../types/Anime";
+import { KODIK_PLAYER_URL } from "../../config";
 import {
   translateKind,
   translateRating,
@@ -38,7 +39,8 @@ const AnimePage = () => {
   const newDesc =
     anime.description !== null ? anime.descriptionHtml : "Описания пока нет :(";
 
-  const urlPlayer = `//kodik.cc/find-player?shikimoriID=${anime.id}&types=anime,anime-serial&episode=1`;
+  // Виджет Kodik находит плеер по shikimoriID; домен берём из конфига.
+  const urlPlayer = `${KODIK_PLAYER_URL}/find-player?shikimoriID=${anime.id}&types=anime,anime-serial&episode=1`;
 
   const animeKind = translateKind(anime.kind);
   const animeRating = translateRating(anime.rating);
